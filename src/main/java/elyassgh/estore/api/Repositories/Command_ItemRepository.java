@@ -19,4 +19,9 @@ public interface Command_ItemRepository extends JpaRepository<Command_Item, Long
     @Query(value = "SELECT SUM(cmd_quantity) FROM Command_Item WHERE productObject_Id = ?1", nativeQuery = true)
     Integer commandedQty (Long productObjId);
 
+    // Find quantity commanded of a product object of a specific command
+    @Query(value = "SELECT SUM(cmd_quantity) FROM Command_Item WHERE productObject_Id = ?1 AND command_Id = ?2 ", nativeQuery = true)
+    Integer commandedQty (Long productObjId, Long commandId);
+
+
 }

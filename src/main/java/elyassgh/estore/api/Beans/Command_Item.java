@@ -10,7 +10,7 @@ public class Command_Item {
 
     @ManyToOne
     @MapsId("productObject_ID")
-    @JoinColumn(name = "product_Id")
+    @JoinColumn(name = "productObject_Id")
     private ProductObject productObject;
 
     @ManyToOne

@@ -9,17 +9,17 @@ public class Cart_Item {
     private Cart_Items_Key cartItem_Id;
 
     @ManyToOne
-    @MapsId("productObject_ID")
+    @MapsId("productObjectID")
     @JoinColumn(name = "product_Id")
     private ProductObject productObject;
 
     @ManyToOne
-    @MapsId("cart_ID")
+    @MapsId("cartID")
     @JoinColumn(name = "cart_Id")
     private Cart cart;
 
     //Quantity Wanted --> ( Must Be Available! if not, the product will be disabled for purchase. )
-    private Integer wanted_quantity;
+    private Integer wantedQuantity;
 
     public Cart_Item() {
     }
@@ -28,7 +28,7 @@ public class Cart_Item {
         this.cartItem_Id = cartItem_Id;
         this.productObject = productObject;
         this.cart = cart;
-        this.wanted_quantity = wanted_quantity;
+        this.wantedQuantity = wanted_quantity;
     }
 
     public Cart_Items_Key getCartItem_Id() {
@@ -55,11 +55,11 @@ public class Cart_Item {
         this.cart = cart;
     }
 
-    public Integer getWanted_quantity() {
-        return wanted_quantity;
+    public Integer getWantedQuantity() {
+        return wantedQuantity;
     }
 
-    public void setWanted_quantity(Integer wanted_quantity) {
-        this.wanted_quantity = wanted_quantity;
+    public void setWantedQuantity(Integer wanted_quantity) {
+        this.wantedQuantity = wanted_quantity;
     }
 }

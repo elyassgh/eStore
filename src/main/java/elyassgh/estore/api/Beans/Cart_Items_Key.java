@@ -8,33 +8,33 @@ import java.util.Objects;
 public class Cart_Items_Key implements Serializable {
 
     @Column(name = "productObject_Id")
-    Long productObject_ID;
+    Long productObjectID;
 
     @Column(name = "cart_Id")
-    Long cart_ID;
+    Long cartID;
 
     public Cart_Items_Key() {
     }
 
-    public Cart_Items_Key(Long productObject_ID, Long cart_ID) {
-        this.productObject_ID = productObject_ID;
-        this.cart_ID = cart_ID;
+    public Cart_Items_Key(Long productObjectID, Long cartID) {
+        this.productObjectID = productObjectID;
+        this.cartID = cartID;
     }
 
-    public Long getProductObject_ID() {
-        return productObject_ID;
+    public Long getProductObjectID() {
+        return productObjectID;
     }
 
-    public void setProductObject_ID(Long productObject_ID) {
-        this.productObject_ID = productObject_ID;
+    public void setProductObjectID(Long productObject_ID) {
+        this.productObjectID = productObject_ID;
     }
 
-    public Long getCart_ID() {
-        return cart_ID;
+    public Long getCartID() {
+        return cartID;
     }
 
-    public void setCart_ID(Long cart_ID) {
-        this.cart_ID = cart_ID;
+    public void setCartID(Long cart_ID) {
+        this.cartID = cart_ID;
     }
 
     @Override
@@ -42,13 +42,13 @@ public class Cart_Items_Key implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cart_Items_Key that = (Cart_Items_Key) o;
-        return Objects.equals(productObject_ID, that.productObject_ID) &&
-                Objects.equals(cart_ID, that.cart_ID);
+        return Objects.equals(productObjectID, that.productObjectID) &&
+                Objects.equals(cartID, that.cartID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(productObject_ID, cart_ID);
+        return Objects.hash(productObjectID, cartID);
     }
 
 }

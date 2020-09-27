@@ -9,7 +9,7 @@ public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "cart_id")
+    @Column(name = "cart_Id")
     private Long id;
 
     // Total price of All the items in the cart

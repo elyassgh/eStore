@@ -19,15 +19,16 @@ public class Command_Item {
     private Command command;
 
     //Quantity Commanded --> (After checking availability and decreasing stock quantity !)
-    private Integer cmd_quantity;
+    @Column( name = "cmd_quantity")
+    private Integer cmdQuantity;
 
     public Command_Item() {
     }
 
-    public Command_Item(ProductObject productObject, Command command, Integer cmd_quantity) {
+    public Command_Item(ProductObject productObject, Command command, Integer cmdQuantity) {
         this.productObject = productObject;
         this.command = command;
-        this.cmd_quantity = cmd_quantity;
+        this.cmdQuantity = cmdQuantity;
     }
 
     public Command_Items_Key getCmd_Items_Id() {
@@ -54,11 +55,11 @@ public class Command_Item {
         this.command = command;
     }
 
-    public Integer getCmd_quantity() {
-        return cmd_quantity;
+    public Integer getCmdQuantity() {
+        return cmdQuantity;
     }
 
-    public void setCmd_quantity(Integer cmd_quantity) {
-        this.cmd_quantity = cmd_quantity;
+    public void setCmdQuantity(Integer cmd_quantity) {
+        this.cmdQuantity = cmd_quantity;
     }
 }

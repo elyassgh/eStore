@@ -10,41 +10,54 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    // Unique String identifier Representing the product
-    private String product_sku;
+    // Unique String identifier Representing the product (Barcode)
+    private String sku;
 
     // Name of the Product
-    private String product_name;
+    private String name;
 
     // Brand Name of the Product (if applicable !)
     @Column(nullable = true)
-    private String product_brand;
+    private String brand;
 
     // Jacket, Coat, Suit, shoes, dress, ...
-    private String product_type;
+    private String type;
 
     // Product Category : Male, Female, Kids, Accessories, Perfumes, ...
-    private String category_name;
+    private String category;
 
     // Small description about the product
-    private String product_description;
+    private String description;
 
+    // Product appealing front phrase
+    private String phrase;
+
+    // Uni-directional OneToOne Relationship.
+    // Product Thumbnail Image ( Fk --> Pointing to an existing Product Object Image)
+    @OneToOne( fetch=FetchType.EAGER )
+    // Eager Fetch type will make the Product Image Object retrieved at once with the Product Object
+    @JoinColumn(name="Image_id")
+    private ProductImage productImage;
+
+    // Product Objects Mapping list (Bi-directional Relationship)
     @OneToMany(mappedBy = "product")
-    List<ProductObject> productObjects;
+    private List<ProductObject> productObjects;
 
     public Product() {
     }
 
-    public Product(Long id, String product_sku, String product_name, String product_brand,
-                   String product_type, String category_name, String product_description,
-                   List<ProductObject> productObjects) {
+    public Product(Long id, String sku, String name, String brand, String type,
+                   String category, String description, String phrase,
+                   ProductImage productImage, List<ProductObject> productObjects) {
         this.id = id;
-        this.product_sku = product_sku;
-        this.product_name = product_name;
-        this.product_brand = product_brand;
-        this.product_type = product_type;
-        this.category_name = category_name;
-        this.product_description = product_description;
+        this.sku = sku;
+        this.name = name;
+        this.brand = brand;
+        this.type = type;
+        this.category = category;
+        this.description = description;
+        this.phrase = phrase;
+        this.productImage = productImage;
         this.productObjects = productObjects;
     }
 
@@ -56,52 +69,68 @@ public class Product {
         this.id = id;
     }
 
-    public String getProduct_sku() {
-        return product_sku;
+    public String getSku() {
+        return sku;
     }
 
-    public void setProduct_sku(String product_sku) {
-        this.product_sku = product_sku;
+    public void setSku(String product_sku) {
+        this.sku = product_sku;
     }
 
-    public String getProduct_name() {
-        return product_name;
+    public String getName() {
+        return name;
     }
 
-    public void setProduct_name(String product_name) {
-        this.product_name = product_name;
+    public void setName(String product_name) {
+        this.name = product_name;
     }
 
-    public String getProduct_brand() {
-        return product_brand;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setProduct_brand(String product_brand) {
-        this.product_brand = product_brand;
+    public void setBrand(String product_brand) {
+        this.brand = product_brand;
     }
 
-    public String getProduct_type() {
-        return product_type;
+    public String getType() {
+        return type;
     }
 
-    public void setProduct_type(String product_type) {
-        this.product_type = product_type;
+    public void setType(String product_type) {
+        this.type = product_type;
     }
 
-    public String getCategory_name() {
-        return category_name;
+    public String getCategory() {
+        return category;
     }
 
-    public void setCategory_name(String category_name) {
-        this.category_name = category_name;
+    public void setCategory(String category_name) {
+        this.category = category_name;
     }
 
-    public String getProduct_description() {
-        return product_description;
+    public String getPhrase() {
+        return phrase;
     }
 
-    public void setProduct_description(String product_description) {
-        this.product_description = product_description;
+    public void setPhrase(String phrase) {
+        this.phrase = phrase;
+    }
+
+    public ProductImage getProductImage() {
+        return productImage;
+    }
+
+    public void setProductImage(ProductImage productImage) {
+        this.productImage = productImage;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String product_description) {
+        this.description = product_description;
     }
 
     public List<ProductObject> getProductObjects() {

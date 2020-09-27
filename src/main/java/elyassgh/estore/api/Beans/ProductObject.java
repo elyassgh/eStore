@@ -30,13 +30,13 @@ public class ProductObject {
     private Product product;
 
     @OneToMany
-    private List<ProductImage> product_images;
+    private List<ProductImage> productImages;
 
-    // Needed for mapping purposes --> Ignore it !
+    // Needed for mapping purposes --> Ignore it, and don't touch it !
     @OneToMany(mappedBy = "productObject")
     private List<Favorite> favorites;
 
-    // Needed for mapping purposes --> Ignore it !
+    // Needed for mapping purposes --> Ignore it, and don't touch it !
     @OneToMany(mappedBy = "productObject")
     private List<Command_Item> items;
 
@@ -50,7 +50,7 @@ public class ProductObject {
         this.quantity = quantity;
         this.price = price;
         this.product = product;
-        this.product_images = new ArrayList<ProductImage>();
+        this.productImages = new ArrayList<ProductImage>();
     }
 
     public Long getId() {
@@ -101,12 +101,12 @@ public class ProductObject {
         this.product = product;
     }
 
-    public List<ProductImage> getProduct_images() {
-        return product_images;
+    public List<ProductImage> getProductImages() {
+        return productImages;
     }
 
-    public void setProduct_images(List<ProductImage> product_images) {
-        this.product_images = product_images;
+    public void setProductImages(List<ProductImage> product_images) {
+        this.productImages = product_images;
     }
 
     public List<Favorite> getFavorites() {

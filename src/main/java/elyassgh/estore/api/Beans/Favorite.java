@@ -2,7 +2,7 @@ package elyassgh.estore.api.Beans;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 public class Favorite {
@@ -11,15 +11,15 @@ public class Favorite {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    // Added timestamp
-    private LocalDateTime added_at;
+    // Added date
+    private Date addedAt;
 
     // Still Available ?!
-    private Boolean is_available;
+    private Boolean isAvailable;
 
     // If it was not available, Then when ?! --> it could be N/A ( --> null )
     @Column(nullable = true)
-    private LocalDate available_date;
+    private LocalDate availableDate;
 
     @ManyToOne
     @JoinColumn(name = "user_Id")
@@ -32,12 +32,12 @@ public class Favorite {
     public Favorite() {
     }
 
-    public Favorite(Long id, LocalDateTime added_at, Boolean is_available,
-                    LocalDate available_date, User user, ProductObject productObject) {
+    public Favorite(Long id, Date addedAt, Boolean isAvailable,
+                    LocalDate availableDate, User user, ProductObject productObject) {
         this.id = id;
-        this.added_at = added_at;
-        this.is_available = is_available;
-        this.available_date = available_date;
+        this.addedAt = addedAt;
+        this.isAvailable = isAvailable;
+        this.availableDate = availableDate;
         this.user = user;
         this.productObject = productObject;
     }
@@ -50,28 +50,28 @@ public class Favorite {
         this.id = id;
     }
 
-    public LocalDateTime getAdded_at() {
-        return added_at;
+    public Date getAddedAt() {
+        return addedAt;
     }
 
-    public void setAdded_at(LocalDateTime added_at) {
-        this.added_at = added_at;
+    public void setAddedAt(Date added_at) {
+        this.addedAt = added_at;
     }
 
-    public Boolean getIs_available() {
-        return is_available;
+    public Boolean getIsAvailable() {
+        return isAvailable;
     }
 
-    public void setIs_available(Boolean is_available) {
-        this.is_available = is_available;
+    public void setIsAvailable(Boolean is_available) {
+        this.isAvailable = is_available;
     }
 
-    public LocalDate getAvailable_date() {
-        return available_date;
+    public LocalDate getAvailableDate() {
+        return availableDate;
     }
 
-    public void setAvailable_date(LocalDate available_date) {
-        this.available_date = available_date;
+    public void setAvailableDate(LocalDate available_date) {
+        this.availableDate = available_date;
     }
 
     public User getUser() {

@@ -7,17 +7,18 @@ public class ProductImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "Image_id")
     private Long id;
 
     // Product image name
-    private String image_name;
+    private String imageName;
 
     // Product image type (Mime Type)
-    private String image_type;
+    private String imageType;
 
     // Product image binary content
     @Column(length = 1000)
-    private byte[] image_byte_array;
+    private byte[] imageBytesArray;
 
     //Fk to ProductObject
     @ManyToOne
@@ -27,11 +28,11 @@ public class ProductImage {
     public ProductImage() {
     }
 
-    public ProductImage(Long id, String image_name, String image_type, byte[] image_byte_array, ProductObject productObject) {
+    public ProductImage(Long id, String imageName, String imageType, byte[] imageBytesArray, ProductObject productObject) {
         this.id = id;
-        this.image_name = image_name;
-        this.image_type = image_type;
-        this.image_byte_array = image_byte_array;
+        this.imageName = imageName;
+        this.imageType = imageType;
+        this.imageBytesArray = imageBytesArray;
         this.productObject = productObject;
     }
 
@@ -43,28 +44,28 @@ public class ProductImage {
         this.id = id;
     }
 
-    public String getImage_name() {
-        return image_name;
+    public String getImageName() {
+        return imageName;
     }
 
-    public void setImage_name(String image_name) {
-        this.image_name = image_name;
+    public void setImageName(String image_name) {
+        this.imageName = image_name;
     }
 
-    public String getImage_type() {
-        return image_type;
+    public String getImageType() {
+        return imageType;
     }
 
-    public void setImage_type(String image_type) {
-        this.image_type = image_type;
+    public void setImageType(String image_type) {
+        this.imageType = image_type;
     }
 
-    public byte[] getImage_byte_array() {
-        return image_byte_array;
+    public byte[] getImageBytesArray() {
+        return imageBytesArray;
     }
 
-    public void setImage_byte_array(byte[] image_byte_array) {
-        this.image_byte_array = image_byte_array;
+    public void setImageBytesArray(byte[] image_byte_array) {
+        this.imageBytesArray = image_byte_array;
     }
 
     public ProductObject getProductObject() {

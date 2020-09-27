@@ -12,13 +12,14 @@ public class User {
     private Long id;
 
     //User name and login
+    @Column(unique = true)
     private String username;
 
     //User password
     private String password;
 
     //User email (For email marketing and notifications)
-    @Column(nullable = true)
+    @Column(nullable = true , unique = true)
     private String email;
 
     @OneToOne(mappedBy = "user")
@@ -28,7 +29,7 @@ public class User {
     private List<Favorite> favorites;
 
     @OneToMany(mappedBy = "user")
-    private List<Command> commands;  // --> Orders ;)
+    private List<Command> commands;  // --> Orders List ;)
 
     public User() {
     }

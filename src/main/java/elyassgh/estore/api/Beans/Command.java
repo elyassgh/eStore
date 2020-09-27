@@ -2,6 +2,7 @@ package elyassgh.estore.api.Beans;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -9,25 +10,29 @@ public class Command {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "command_Id")
     private Long id;
 
     // Command Reference
     private String crf;
 
-    // Command date
-    private LocalDateTime date;
+    // Command date ( important ! for database (ORM) queries )
+    private Date date;
+
+    // Command Confirmation timestamps
+    private LocalDateTime timestamps;
 
     // Billing Address
-    private String billing_adr;
+    private String billingAdr;
 
     // Billing Email
-    private String billing_email;
+    private String billingEmail;
 
     // Shipping Address
-    private String shipping_adr;
+    private String shippingAdr;
 
     // Shipping fees
-    private Double shipping_fees;
+    private Double shippingFees;
 
     // Command Total price
     private Double amount;
@@ -36,7 +41,7 @@ public class Command {
     private Integer cardinal;
 
     // Command Status ( In processes, Sent, Shipped Or Canceled )
-    private String cmd_status;
+    private String cmdStatus;
 
     @ManyToOne
     @JoinColumn(name = "user_Id")
@@ -48,20 +53,21 @@ public class Command {
     public Command() {
     }
 
-    public Command(Long id, String crf, LocalDateTime date, String billing_adr,
-                   String billing_email, String shipping_adr, Double shipping_fees,
-                   Double amount, Integer cardinal, String cmd_status, User user,
+    public Command(Long id, String crf, Date date, LocalDateTime timestamps , String billingAdr,
+                   String billingEmail, String shippingAdr, Double shippingFees,
+                   Double amount, Integer cardinal, String cmdStatus, User user,
                    List<Command_Item> items) {
         this.id = id;
         this.crf = crf;
         this.date = date;
-        this.billing_adr = billing_adr;
-        this.billing_email = billing_email;
-        this.shipping_adr = shipping_adr;
-        this.shipping_fees = shipping_fees;
+        this.timestamps = timestamps;
+        this.billingAdr = billingAdr;
+        this.billingEmail = billingEmail;
+        this.shippingAdr = shippingAdr;
+        this.shippingFees = shippingFees;
         this.amount = amount;
         this.cardinal = cardinal;
-        this.cmd_status = cmd_status;
+        this.cmdStatus = cmdStatus;
         this.user = user;
         this.items = items;
     }
@@ -82,44 +88,52 @@ public class Command {
         this.crf = crf;
     }
 
-    public LocalDateTime getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public String getBilling_adr() {
-        return billing_adr;
+    public LocalDateTime getTimestamps() {
+        return timestamps;
     }
 
-    public void setBilling_adr(String billing_adr) {
-        this.billing_adr = billing_adr;
+    public void setTimestamps(LocalDateTime timestamps) {
+        this.timestamps = timestamps;
     }
 
-    public String getBilling_email() {
-        return billing_email;
+    public String getBillingAdr() {
+        return billingAdr;
     }
 
-    public void setBilling_email(String billing_email) {
-        this.billing_email = billing_email;
+    public void setBillingAdr(String billing_adr) {
+        this.billingAdr = billing_adr;
     }
 
-    public String getShipping_adr() {
-        return shipping_adr;
+    public String getBillingEmail() {
+        return billingEmail;
     }
 
-    public void setShipping_adr(String shipping_adr) {
-        this.shipping_adr = shipping_adr;
+    public void setBillingEmail(String billing_email) {
+        this.billingEmail = billing_email;
     }
 
-    public Double getShipping_fees() {
-        return shipping_fees;
+    public String getShippingAdr() {
+        return shippingAdr;
     }
 
-    public void setShipping_fees(Double shipping_fees) {
-        this.shipping_fees = shipping_fees;
+    public void setShippingAdr(String shipping_adr) {
+        this.shippingAdr = shipping_adr;
+    }
+
+    public Double getShippingFees() {
+        return shippingFees;
+    }
+
+    public void setShippingFees(Double shipping_fees) {
+        this.shippingFees = shipping_fees;
     }
 
     public Double getAmount() {
@@ -130,12 +144,20 @@ public class Command {
         this.amount = amount;
     }
 
-    public String getCmd_status() {
-        return cmd_status;
+    public Integer getCardinal() {
+        return cardinal;
     }
 
-    public void setCmd_status(String cmd_status) {
-        this.cmd_status = cmd_status;
+    public void setCardinal(Integer cardinal) {
+        this.cardinal = cardinal;
+    }
+
+    public String getCmdStatus() {
+        return cmdStatus;
+    }
+
+    public void setCmdStatus(String cmd_status) {
+        this.cmdStatus = cmd_status;
     }
 
     public User getUser() {

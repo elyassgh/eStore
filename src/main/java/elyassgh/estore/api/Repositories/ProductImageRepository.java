@@ -6,4 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductImageRepository extends JpaRepository<ProductImage, Long> {
+
+    // To do later ! IMPORTANT --> Remember it's the important thing you will learn in this project
+    // 27/09/2020 21:45
+
 }

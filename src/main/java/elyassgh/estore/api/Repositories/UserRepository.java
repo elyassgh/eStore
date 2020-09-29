@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
@@ -17,5 +19,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // Count all users
     @Query("SELECT COUNT (u) FROM User u")
     Long userCount();
+
+    // Count users joined in a specific period
+    @Query("SELECT COUNT (u) FROM User u WHERE u.addedAt BETWEEN ?1 AND ?2")
+    Long userCount(Date start, Date end);
 
 }

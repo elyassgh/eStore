@@ -26,7 +26,7 @@ public interface CommandRepository extends JpaRepository<Command, Long> {
     List<Command> findCommandsByBillingAdr (String billing_adr);
 
     // Find commands of a specific shipping address
-    List<Command> findCommandsByShippingAdr (String billing_adr);
+    List<Command> findCommandsByShippingAdr (String shipping_adr);
 
     // Find all commands having a specific status;
     List<Command> findCommandsByCmdStatus (String status);
@@ -57,6 +57,6 @@ public interface CommandRepository extends JpaRepository<Command, Long> {
 
     // Find List of emails Having done a command in a specific period by status
     @Query("SELECT DISTINCT c.billingEmail FROM Command c WHERE (c.date BETWEEN ?1 AND ?2) AND c.cmdStatus = ?3")
-    List<String> cmdEmailsListofPeriod (Date start, Date end, String cmd_status);
+    List<String> cmdEmailsListOfPeriod (Date start, Date end, String cmd_status);
 
 }

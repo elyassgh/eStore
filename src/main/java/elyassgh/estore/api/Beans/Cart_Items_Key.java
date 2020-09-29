@@ -8,10 +8,10 @@ import java.util.Objects;
 public class Cart_Items_Key implements Serializable {
 
     @Column(name = "productObject_Id")
-    Long productObjectID;
+    private Long productObjectID;
 
     @Column(name = "cart_Id")
-    Long cartID;
+    private Long cartID;
 
     public Cart_Items_Key() {
     }

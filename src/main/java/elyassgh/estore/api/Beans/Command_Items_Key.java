@@ -10,10 +10,10 @@ import java.util.Objects;
 public class Command_Items_Key implements Serializable {
 
     @Column(name = "productObject_Id")
-    Long productObject_ID;
+    private Long productObject_ID;
 
     @Column(name = "command_Id")
-    Long command_ID;
+    private Long command_ID;
 
     public Command_Items_Key() {
     }

@@ -11,9 +11,10 @@ import java.util.List;
 public interface CartRepository extends JpaRepository<Cart, Long> {
 
     // Find the cart of a specific user
-    Cart findByUser(User user);
+    Cart findCartByUser(User user);
 
-    // Find non empty carts
+    // Find carts where number of items is more than a specific number (nbr)
+    // --> for non empty carts  ( cardinal > 0 ) <=> nbr = 0
     List<Cart> findByCardinalGreaterThanOrderByAmountDesc(Integer nbr);
 
 

@@ -2,6 +2,7 @@ package elyassgh.estore.api.Beans;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -22,11 +23,14 @@ public class User {
     @Column(nullable = true , unique = true)
     private String email;
 
+    private Date addedAt;
+
     @OneToOne(mappedBy = "user")
     private Cart cart;
 
     @OneToMany(mappedBy = "user")
     private List<Favorite> favorites;
+
 
     @OneToMany(mappedBy = "user")
     private List<Command> commands;  // --> Orders List ;)
@@ -34,14 +38,17 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String password, String email, Cart cart) {
+    public User(Long id, String username, String password, String email,
+                Date addedAt, Cart cart, List<Favorite> favorites,
+                List<Command> commands) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.addedAt = addedAt;
         this.cart = cart;
-        this.favorites = new ArrayList<Favorite>();
-        this.commands = new ArrayList<Command>();
+        this.favorites = favorites;
+        this.commands = commands;
     }
 
     public Long getId() {
@@ -74,6 +81,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Date getAddedAt() {
+        return addedAt;
+    }
+
+    public void setAddedAt(Date addedAt) {
+        this.addedAt = addedAt;
     }
 
     public Cart getCart() {

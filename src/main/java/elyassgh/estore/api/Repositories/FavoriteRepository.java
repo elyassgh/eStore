@@ -18,7 +18,7 @@ public interface FavoriteRepository extends JpaRepository<Favorite, Long> {
     // Find the most favorite product object
     Integer countFavoritesByProductObject (ProductObject productObject);
 
-    // Find Favorite not available available
+    // Find non available favorite (product objects)
     List<Favorite> findFavoritesByIsAvailableFalse ();
 
     // Find added favorites after a specific date

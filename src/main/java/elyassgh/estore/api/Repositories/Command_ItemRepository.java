@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -16,10 +17,18 @@ public interface Command_ItemRepository extends JpaRepository<Command_Item, Long
 
     // Find quantity commanded of a product object so far
     @Query("SELECT SUM(ci.cmdQuantity) FROM Command_Item ci WHERE ci.productObject.id = ?1")
-    Integer commandedQty (Long productObjId);
+    Integer commandedQtyOfPO (Long productObjId);
 
-    // Find quantity commanded of a product object of a specific command (ref)
+    // Find quantity commanded of a product object so far by status
+    @Query("SELECT SUM(ci.cmdQuantity) FROM Command_Item ci WHERE ci.productObject.id = ?1 AND ci.command.cmdStatus = ?2")
+    Integer commandedQtyOfPO (Long productObjId , String cmd_status);
+
+    // Find quantity commanded of a product object in a period by status
+    @Query("SELECT SUM(ci.cmdQuantity) FROM Command_Item ci WHERE ci.productObject.id = ?1 AND ci.command.cmdStatus = ?2 AND ci.command.date BETWEEN ?3 AND ?4")
+    Integer commandedQtyOfPO (Long productObjId , String cmd_status , Date start, Date end);
+
+    // Find quantity commanded of a product object in a specific command (ref)
     @Query("SELECT SUM(ci.cmdQuantity) FROM Command_Item ci WHERE ci.productObject.id = ?1 AND ci.command.crf = ?2 ")
-    Integer commandedQty (Long productObjId, Long crf);
+    Integer commandedQtyOfPOInCmd (Long productObjId, String crf);
 
 }

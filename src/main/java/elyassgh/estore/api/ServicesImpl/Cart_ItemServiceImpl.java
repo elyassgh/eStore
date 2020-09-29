@@ -34,14 +34,17 @@ public class Cart_ItemServiceImpl implements Cart_ItemService {
 
     @Override
     public int update(Cart_Item cart_item) {
-        Cart_Item item = repository.findCart_ItemByCartAndProductObject(cart_item.getCart(), cart_item.getProductObject());
-        try {
-            repository.save(item);
-            return 1;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return -1;
+        Optional<Cart_Item> item = repository.findById(cart_item.getCartItem_Id());
+        if (item.isPresent()) {
+            try {
+                repository.save(item.get());
+                return 1;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return -1;
+            }
         }
+        return 0;
     }
 
     @Override

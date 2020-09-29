@@ -56,6 +56,7 @@ public class Command_ItemServiceImpl implements Command_ItemService {
     public int update(Command_Item command_item) {
         try {
 
+
             return 1;
         } catch (Exception e) {
             e.printStackTrace();

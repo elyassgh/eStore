@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProductObjectService {
 
-    // ***  Create Services  ***
+    // ***  Create & Update Services  ***
     public int save (ProductObject productObject);
 
     // ***  Read Services  ***
@@ -16,9 +16,6 @@ public interface ProductObjectService {
     List<ProductObject> findSoldPOs ();
     List<ProductObject> findSoonSoldPOs ();
     List<ProductObject> findAvailablePOs (Double start, Double end);
-
-    // ***  Update Services  ***
-    public int update (ProductObject productObject);
 
     // ***  Delete Services  ***
     public int delete (ProductObject productObject);

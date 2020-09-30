@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface FavoriteService {
 
-    // ***  Create Services  ***
+    // ***  Create & Update Services  ***
     public int save (Favorite favorite);
 
     // ***  Read Services  ***
@@ -18,9 +18,6 @@ public interface FavoriteService {
     public List<Favorite> findFavsNonAvailable ();
     public List<Favorite> findFavsAddedAfter (Date date);
     public List<Favorite> findFavsAddedAfter (Boolean availability, Date date);
-
-    // ***  Update Services  ***
-    public int update (Favorite favorite);
 
     // ***  Delete Services  ***
     public int delete (Favorite favorite);

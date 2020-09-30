@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface Command_ItemService {
 
-    // ***  Create Services  ***
+    // ***  Create & Update Services  ***
     public int save (Command_Item command_item);
 
     // ***  Read Services  ***
@@ -18,10 +18,8 @@ public interface Command_ItemService {
     public Integer commandedQtyOfPO (Long productObjId , String cmd_status , Date start, Date end);
     public Integer commandedQtyOfPOInCmd (Long productObjId, String crf);
 
-    // ***  Update Services  ***<
-    public int update (Command_Item command_item);
-
     // ***  Delete Services  ***
     public int delete (Command_Item command_item);
+    public int deleteBatch (List<Command_Item> items);
 
 }

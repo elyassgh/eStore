@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class Cart_ItemServiceImpl implements Cart_ItemService {
@@ -32,20 +31,6 @@ public class Cart_ItemServiceImpl implements Cart_ItemService {
         return repository.findCart_ItemsByCart(cart);
     }
 
-    @Override
-    public int update(Cart_Item cart_item) {
-        Optional<Cart_Item> item = repository.findById(cart_item.getCartItem_Id());
-        if (item.isPresent()) {
-            try {
-                repository.save(item.get());
-                return 1;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return -1;
-            }
-        }
-        return 0;
-    }
 
     @Override
     public int delete(Cart_Item cart_item) {

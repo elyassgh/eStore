@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class Command_ItemServiceImpl implements Command_ItemService {
@@ -52,11 +53,11 @@ public class Command_ItemServiceImpl implements Command_ItemService {
         return repository.commandedQtyOfPOInCmd(productObjId, crf);
     }
 
+
     @Override
-    public int update(Command_Item command_item) {
+    public int delete(Command_Item command_item) {
         try {
-
-
+            repository.delete(command_item);
             return 1;
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,7 +66,13 @@ public class Command_ItemServiceImpl implements Command_ItemService {
     }
 
     @Override
-    public int delete(Command_Item command_item) {
-        return 0;
+    public int deleteBatch(List<Command_Item> items) {
+        try {
+            repository.deleteInBatch(items);
+            return 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 }

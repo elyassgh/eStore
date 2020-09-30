@@ -37,26 +37,6 @@ public class CartServiceImpl implements CartService {
         return repository.findByCardinalGreaterThanOrderByAmountDesc(nbr_items);
     }
 
-    @Override
-    public int update(Cart cart) {
-
-        Optional<Cart> container = repository.findById(cart.getId());
-
-        if (container.isPresent()) {
-            try {
-                Cart tmp = container.get();
-                tmp.setAmount(cart.getAmount());
-                tmp.setCardinal(cart.getCardinal());
-                tmp.setItems(cart.getItems());
-                repository.save(tmp);
-                return 1;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return -1;
-            }
-        }
-        return 0;
-    }
 
     @Override
     public int delete(Cart cart) {

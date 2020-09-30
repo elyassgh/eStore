@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Command_Item {
 
     @EmbeddedId
-    private Command_Items_Key cmd_Items_Id;
+    private Command_Items_Key cmd_Item_Id;
 
     @ManyToOne
     @MapsId("productObject_ID")
@@ -31,12 +31,12 @@ public class Command_Item {
         this.cmdQuantity = cmdQuantity;
     }
 
-    public Command_Items_Key getCmd_Items_Id() {
-        return cmd_Items_Id;
+    public Command_Items_Key getCmd_Item_Id() {
+        return cmd_Item_Id;
     }
 
-    public void setCmd_Items_Id(Command_Items_Key cmd_Items_Id) {
-        this.cmd_Items_Id = cmd_Items_Id;
+    public void setCmd_Item_Id(Command_Items_Key cmd_Items_Id) {
+        this.cmd_Item_Id = cmd_Items_Id;
     }
 
     public ProductObject getProductObject() {

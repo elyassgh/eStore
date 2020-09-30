@@ -2,11 +2,9 @@ package elyassgh.estore.api.Services;
 
 public interface ProductImageService {
 
-    // ***  Create Services  ***
+    // ***  Create & Update Services  ***
 
     // ***  Read Services  ***
-
-    // ***  Update Services  ***
 
     // ***  Delete Services  ***
 

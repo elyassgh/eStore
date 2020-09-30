@@ -7,14 +7,11 @@ import java.util.List;
 
 public interface Cart_ItemService {
 
-    // ***  Create Services  ***
+    // ***  Create & Update Services  ***
     public int save (Cart_Item cart_item);
 
     // ***  Read Services  ***
     List<Cart_Item> findCart_ItemsByCart (Cart cart);
-
-    // ***  Update Services  ***
-    public int update (Cart_Item cart_item);
 
     // ***  Delete Services  ***
     public int delete (Cart_Item cart_item);

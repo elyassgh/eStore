@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ProductService {
 
-    // ***  Create Services  ***
+    // ***  Create & Update Services  ***
     public int save (Product product);
 
     // ***  Read Services  ***
@@ -15,9 +15,6 @@ public interface ProductService {
     public List<Product> findProductsByCategory (String category);
     public List<Product> findProductByCatAndBrand (String category, String brand);
     public List<Product> findProductsByCatAndBrandAndType (String category, String brand, String type);
-
-    // ***  Update Services  ***
-    public int update (Product product);
 
     // ***  Delete Services  ***
     public int delete (Product product);

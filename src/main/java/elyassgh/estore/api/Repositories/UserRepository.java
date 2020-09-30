@@ -10,7 +10,7 @@ import java.util.Date;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    // Find User by username
+    // Find user by username
     User findUserByUsername (String username);
 
     // Find user by email

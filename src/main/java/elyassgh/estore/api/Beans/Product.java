@@ -11,6 +11,7 @@ public class Product {
     private Long id;
 
     // Unique String identifier Representing the product (Barcode)
+    @Column(unique = true)
     private String sku;
 
     // Name of the Product

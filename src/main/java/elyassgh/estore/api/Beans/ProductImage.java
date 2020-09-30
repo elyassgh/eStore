@@ -28,8 +28,7 @@ public class ProductImage {
     public ProductImage() {
     }
 
-    public ProductImage(Long id, String imageName, String imageType, byte[] imageBytesArray, ProductObject productObject) {
-        this.id = id;
+    public ProductImage(String imageName, String imageType, byte[] imageBytesArray, ProductObject productObject) {
         this.imageName = imageName;
         this.imageType = imageType;
         this.imageBytesArray = imageBytesArray;

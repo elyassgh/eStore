@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -27,6 +28,11 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    @Override
+    public Optional<User> findById(Long id) {
+        return repository.findById(id);
     }
 
     @Override

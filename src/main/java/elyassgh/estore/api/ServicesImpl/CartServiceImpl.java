@@ -4,6 +4,7 @@ import elyassgh.estore.api.Beans.Cart;
 import elyassgh.estore.api.Beans.User;
 import elyassgh.estore.api.Repositories.CartRepository;
 import elyassgh.estore.api.Services.CartService;
+import elyassgh.estore.api.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,9 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     public CartRepository repository;
+
+    @Autowired
+    public UserService userService;
 
     @Override
     public int save(Cart cart) {
@@ -28,7 +32,13 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Cart findCartByUser(User user) {
+    public Optional<Cart> findCartById(Long cartID) {
+        return repository.findById(cartID);
+    }
+
+    @Override
+    public Cart findCartByUser(Long id) {
+        User user = userService.findById(id).orElseThrow(()-> new RuntimeException("User Not Found !")) ;
         return repository.findCartByUser(user);
     }
 

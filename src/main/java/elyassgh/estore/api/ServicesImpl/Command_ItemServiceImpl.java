@@ -1,15 +1,15 @@
 package elyassgh.estore.api.ServicesImpl;
 
-import elyassgh.estore.api.Beans.Command;
-import elyassgh.estore.api.Beans.Command_Item;
+import elyassgh.estore.api.Beans.*;
 import elyassgh.estore.api.Repositories.Command_ItemRepository;
+import elyassgh.estore.api.Services.CommandService;
 import elyassgh.estore.api.Services.Command_ItemService;
+import elyassgh.estore.api.Services.ProductObjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class Command_ItemServiceImpl implements Command_ItemService {
@@ -17,15 +17,32 @@ public class Command_ItemServiceImpl implements Command_ItemService {
     @Autowired
     public Command_ItemRepository repository;
 
+    @Autowired
+    public ProductObjectService productObjectService;
+
+    @Autowired
+    public CommandService commandService;
+
     @Override
-    public int save(Command_Item command_item) {
+    public int save(Long productObjectId, String crf, Integer quantity) {
+        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("Product Object Not Found!") );
+        Command command = commandService.findByCrf(crf);
+        if (command == null) throw new RuntimeException("Command Not Found!");
         try {
-            repository.save(command_item);
+            repository.save(new Command_Item(productObject, command, quantity));
             return 1;
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    @Override
+    public Command_Item findByCmdAndPO(String crf, Long productObjectId) {
+        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("Product Object Not Found!") );
+        Command command = commandService.findByCrf(crf);
+        if (command == null) throw new RuntimeException("Command Not Found!");
+        return repository.findByCommandAndProductObject(command,productObject);
     }
 
     @Override

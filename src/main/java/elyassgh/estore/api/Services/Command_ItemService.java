@@ -9,9 +9,10 @@ import java.util.List;
 public interface Command_ItemService {
 
     // ***  Create & Update Services  ***
-    public int save (Command_Item command_item);
+    public int save(Long productObjectId, String crf, Integer quantity);
 
     // ***  Read Services  ***
+    public Command_Item findByCmdAndPO(String crf, Long productObjectId);
     public List<Command_Item> findCmdItemsOfCmd (Command command);
     public Integer commandedQtyOfPO (Long productObjId);
     public Integer commandedQtyOfPO (Long productObjId , String cmd_status);

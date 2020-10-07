@@ -1,9 +1,9 @@
 package elyassgh.estore.api.Services;
 
 import elyassgh.estore.api.Beans.Cart;
-import elyassgh.estore.api.Beans.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CartService {
 
@@ -11,7 +11,8 @@ public interface CartService {
     public int save (Cart cart);
 
     // ***  Read Services  ***
-    public Cart findCartByUser (User user);
+    public Optional<Cart> findCartById (Long cartID);
+    public Cart findCartByUser (Long id);
     public List<Cart> findCartsWithItemsMoreThan(Integer nbr_items);
 
     // ***  Delete Services  ***

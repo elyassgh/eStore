@@ -4,6 +4,7 @@ import elyassgh.estore.api.Beans.Product;
 import elyassgh.estore.api.Beans.ProductObject;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductObjectService {
 
@@ -11,6 +12,7 @@ public interface ProductObjectService {
     public int save (ProductObject productObject);
 
     // ***  Read Services  ***
+    Optional<ProductObject> findPOById (Long productObjectId);
     List<ProductObject> findPOsOfProduct (Product product);
     List<ProductObject> findPOsOfProductAndQtyGE (Product product, Integer quantity);
     List<ProductObject> findSoldPOs ();

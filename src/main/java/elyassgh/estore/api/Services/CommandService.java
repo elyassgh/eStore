@@ -13,11 +13,11 @@ public interface CommandService {
 
     // ***  Read Services  ***
     public Command findByCrf (String crf);
-    public List<Command> findCmdsOfUser (User user);
+    public List<Command> findCmdsOfUser (Long userId);
     public List<Command> findCmdsBetween (Date start, Date end);
     public List<Command> findCmdsByBillAdr (String billing_adr);
     public List<Command> findCmdsByShipAdr (String shipping_adr);
-    public List<Command> findComdsByStatus (String status);
+    public List<Command> findCmdsByStatus(String status);
     public Double findCmdAmount (String crf);
     public Double revenueOfPeriod (Date start, Date end, String status);
     public Double revenueOfUser (String username);

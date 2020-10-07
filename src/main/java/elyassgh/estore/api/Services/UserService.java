@@ -3,6 +3,7 @@ package elyassgh.estore.api.Services;
 import elyassgh.estore.api.Beans.User;
 
 import java.util.Date;
+import java.util.Optional;
 
 public interface UserService {
 
@@ -10,6 +11,7 @@ public interface UserService {
     public int save (User user);
 
     // ***  Read Services  ***
+    public Optional<User> findById (Long id);
     public User findUserByUsername (String username);
     public User findUserByEmail (String email);
     public Long userCount ();

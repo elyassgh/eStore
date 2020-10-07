@@ -10,7 +10,7 @@ public class Cart_Item {
 
     @ManyToOne
     @MapsId("productObjectID")
-    @JoinColumn(name = "product_Id")
+    @JoinColumn(name = "productObject_Id")
     private ProductObject productObject;
 
     @ManyToOne
@@ -24,8 +24,7 @@ public class Cart_Item {
     public Cart_Item() {
     }
 
-    public Cart_Item(Cart_Items_Key cartItem_Id, ProductObject productObject, Cart cart, Integer wanted_quantity) {
-        this.cartItem_Id = cartItem_Id;
+    public Cart_Item(ProductObject productObject, Cart cart, Integer wanted_quantity) {
         this.productObject = productObject;
         this.cart = cart;
         this.wantedQuantity = wanted_quantity;

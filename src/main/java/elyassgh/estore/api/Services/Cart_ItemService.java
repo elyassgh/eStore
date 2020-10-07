@@ -8,10 +8,12 @@ import java.util.List;
 public interface Cart_ItemService {
 
     // ***  Create & Update Services  ***
-    public int save (Cart_Item cart_item);
+    public int save (Long productObjectId, Long cartId, Integer quantity);
+    public int update (Long productObjectId, Long cartId, Integer quantity);
 
     // ***  Read Services  ***
-    List<Cart_Item> findCart_ItemsByCart (Cart cart);
+    public List<Cart_Item> findCart_ItemsByCart (Cart cart);
+    public Cart_Item findByCartAndPO (Long cartId, Long productObjectId);
 
     // ***  Delete Services  ***
     public int delete (Cart_Item cart_item);

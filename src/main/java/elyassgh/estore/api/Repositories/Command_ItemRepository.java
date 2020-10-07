@@ -3,6 +3,7 @@ package elyassgh.estore.api.Repositories;
 import elyassgh.estore.api.Beans.Command;
 import elyassgh.estore.api.Beans.Command_Item;
 import elyassgh.estore.api.Beans.Command_Items_Key;
+import elyassgh.estore.api.Beans.ProductObject;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,9 @@ public interface Command_ItemRepository extends JpaRepository<Command_Item, Comm
 
     // Find command items of a specific command
     List<Command_Item> findCommand_ItemsByCommand (Command command);
+
+    // Find By Id (Composed Primary Key !)
+    Command_Item findByCommandAndProductObject (Command command, ProductObject productObject);
 
     // Find quantity commanded of a product object so far
     @Query("SELECT SUM(ci.cmdQuantity) FROM Command_Item ci WHERE ci.productObject.id = ?1")

@@ -2,12 +2,16 @@ package elyassgh.estore.api.ServicesImpl;
 
 import elyassgh.estore.api.Beans.Cart;
 import elyassgh.estore.api.Beans.Cart_Item;
+import elyassgh.estore.api.Beans.ProductObject;
 import elyassgh.estore.api.Repositories.Cart_ItemRepository;
+import elyassgh.estore.api.Services.CartService;
 import elyassgh.estore.api.Services.Cart_ItemService;
+import elyassgh.estore.api.Services.ProductObjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class Cart_ItemServiceImpl implements Cart_ItemService {
@@ -15,15 +19,46 @@ public class Cart_ItemServiceImpl implements Cart_ItemService {
     @Autowired
     public Cart_ItemRepository repository;
 
+    @Autowired
+    public ProductObjectService productObjectService;
+
+    @Autowired
+    public CartService cartService;
+
     @Override
-    public int save(Cart_Item cart_item) {
+    public int save(Long productObjectId, Long cartId, Integer quantity) {
+        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("Product Object Not Found") );
+        Cart cart = cartService.findCartById(cartId).orElseThrow(()-> new RuntimeException("Cart Not Found"));
+            try {
+                repository.save(new Cart_Item(productObject, cart, quantity));
+                return 1;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return -1;
+            }
+    }
+
+
+    @Override
+    public int update(Long productObjectId, Long cartId, Integer quantity) {
+        Cart cart = cartService.findCartById(cartId).orElseThrow(()-> new RuntimeException("Cart Not Found"));
+        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("Product Object Not Found") );
         try {
-            repository.save(cart_item);
+            Cart_Item item = repository.findCart_ItemByCartAndProductObject(cart, productObject);
+            item.setWantedQuantity(quantity);
+            repository.save(new Cart_Item(productObject, cart, quantity));
             return 1;
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    @Override
+    public Cart_Item findByCartAndPO(Long cartId, Long productObjectId) {
+        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("Product Object Not Found"));
+        Cart cart = cartService.findCartById(cartId).orElseThrow(()-> new RuntimeException("Cart Not found"));
+        return repository.findCart_ItemByCartAndProductObject(cart,productObject);
     }
 
     @Override

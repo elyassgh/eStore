@@ -4,6 +4,7 @@ import elyassgh.estore.api.Beans.Command;
 import elyassgh.estore.api.Beans.User;
 import elyassgh.estore.api.Repositories.CommandRepository;
 import elyassgh.estore.api.Services.CommandService;
+import elyassgh.estore.api.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,9 @@ public class CommandServiceImpl implements CommandService {
 
     @Autowired
     public CommandRepository repository;
+
+    @Autowired
+    public UserService userService;
 
     @Override
     public int save(Command command) {
@@ -33,7 +37,8 @@ public class CommandServiceImpl implements CommandService {
     }
 
     @Override
-    public List<Command> findCmdsOfUser(User user) {
+    public List<Command> findCmdsOfUser(Long userId) {
+        User user = userService.findById(userId).orElseThrow(()-> new RuntimeException("User Not Found"));
         return repository.findCommandsByUser(user);
     }
 
@@ -53,7 +58,7 @@ public class CommandServiceImpl implements CommandService {
     }
 
     @Override
-    public List<Command> findComdsByStatus(String status) {
+    public List<Command> findCmdsByStatus(String status) {
         return repository.findCommandsByCmdStatus(status);
     }
 

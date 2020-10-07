@@ -39,7 +39,7 @@ public class UserRest {
         return userService.userCount(start, end);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/delete")
     public int delete(@RequestParam(name = "username") String username) {
         return userService.delete(userService.findUserByUsername(username));
     }

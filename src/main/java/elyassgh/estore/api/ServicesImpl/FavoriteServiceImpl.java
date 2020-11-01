@@ -5,17 +5,24 @@ import elyassgh.estore.api.Beans.ProductObject;
 import elyassgh.estore.api.Beans.User;
 import elyassgh.estore.api.Repositories.FavoriteRepository;
 import elyassgh.estore.api.Services.FavoriteService;
+import elyassgh.estore.api.Services.ProductObjectService;
+import elyassgh.estore.api.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FavoriteServiceImpl implements FavoriteService {
 
     @Autowired
     public FavoriteRepository repository;
+    @Autowired
+    public UserService userService;
+    @Autowired
+    public ProductObjectService productObjectService;
 
     @Override
     public int save(Favorite favorite) {
@@ -29,12 +36,19 @@ public class FavoriteServiceImpl implements FavoriteService {
     }
 
     @Override
-    public List<Favorite> findFavsOfUser(User user) {
+    public Optional<Favorite> findById(Long favoriteId) {
+        return repository.findById(favoriteId);
+    }
+
+    @Override
+    public List<Favorite> findFavsOfUser(Long userId) {
+        User user = userService.findById(userId).orElseThrow(()-> new RuntimeException("User Not Found !"));
         return repository.findFavoritesByUser(user);
     }
 
     @Override
-    public Integer countFavsByPO(ProductObject productObject) {
+    public Integer countFavsByPO(Long productObjectId) {
+        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("ProductObject Not Found !"));
         return repository.countFavoritesByProductObject(productObject);
     }
 

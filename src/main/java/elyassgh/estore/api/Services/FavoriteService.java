@@ -6,6 +6,7 @@ import elyassgh.estore.api.Beans.User;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public interface FavoriteService {
 
@@ -13,8 +14,9 @@ public interface FavoriteService {
     public int save (Favorite favorite);
 
     // ***  Read Services  ***
-    public List<Favorite> findFavsOfUser (User user);
-    public Integer countFavsByPO (ProductObject productObject);
+    public Optional<Favorite> findById(Long favoriteId);
+    public List<Favorite> findFavsOfUser (Long userId);
+    public Integer countFavsByPO (Long productObjectId);
     public List<Favorite> findFavsNonAvailable ();
     public List<Favorite> findFavsAddedAfter (Date date);
     public List<Favorite> findFavsAddedAfter (Boolean availability, Date date);

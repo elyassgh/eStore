@@ -14,17 +14,17 @@ public class UserRest {
     @Autowired
     UserService userService;
 
-    @PostMapping("/signup")
+    @PostMapping("/register")
     public int save(@RequestBody User user) {
         return userService.save(user);
     }
 
-    @GetMapping("/")
+    @GetMapping("/find")
     public User findUserByUsername(@RequestParam(name = "username") String username) {
         return userService.findUserByUsername(username);
     }
 
-    @GetMapping("/")
+    @GetMapping("/find")
     public User findUserByEmail(@RequestParam(name = "email") String email) {
         return userService.findUserByEmail(email);
     }

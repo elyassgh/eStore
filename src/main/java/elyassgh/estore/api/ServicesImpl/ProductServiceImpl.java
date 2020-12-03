@@ -1,12 +1,15 @@
 package elyassgh.estore.api.ServicesImpl;
 
 import elyassgh.estore.api.Beans.Product;
+import elyassgh.estore.api.Beans.ProductImage;
 import elyassgh.estore.api.Repositories.ProductRepository;
+import elyassgh.estore.api.Services.ProductImageService;
 import elyassgh.estore.api.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -14,15 +17,24 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     public ProductRepository repository;
 
+    //Create a product without an image
     @Override
-    public int save(Product product) {
+    public int save(String sku, String name, String brand, String type,
+                    String category, String description, String phrase) {
         try {
-            repository.save(product);
+            repository.save(new Product(sku,name,brand,type,category,description,phrase,null));
             return 1;
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    @Override
+    public int updateThumbImage(String sku, ProductImage productImage) {
+        Product product = Optional.ofNullable(findBySKU(sku)).orElseThrow(() -> new RuntimeException("Product Not Found"));
+        product.setProductImage(productImage);
+        return 0;
     }
 
     @Override

@@ -1,13 +1,16 @@
 package elyassgh.estore.api.Services;
 
 import elyassgh.estore.api.Beans.Product;
+import elyassgh.estore.api.Beans.ProductImage;
 
 import java.util.List;
 
 public interface ProductService {
 
     // ***  Create & Update Services  ***
-    public int save (Product product);
+    public int save (String sku, String name, String brand, String type,
+                     String category, String description, String phrase);
+    public int updateThumbImage (String sku, ProductImage productImage);
 
     // ***  Read Services  ***
     public Product findBySKU (String sku);

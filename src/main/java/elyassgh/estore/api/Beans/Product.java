@@ -37,20 +37,20 @@ public class Product {
     // Product Thumbnail Image ( Fk --> Pointing to an existing Product Object Image)
     @OneToOne( fetch=FetchType.EAGER )
     // Eager Fetch type will make the Product Image Object retrieved at once with the Product Object
+    // IMPORTANT !!! --> This Attribute represent a pointer to one the product objects of this product model
     @JoinColumn(name="Image_id")
     private ProductImage productImage;
 
     // Product Objects Mapping list (Bi-directional Relationship)
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product" , orphanRemoval = true)
     private List<ProductObject> productObjects;
 
     public Product() {
     }
 
-    public Product(Long id, String sku, String name, String brand, String type,
+    public Product(String sku, String name, String brand, String type,
                    String category, String description, String phrase,
-                   ProductImage productImage, List<ProductObject> productObjects) {
-        this.id = id;
+                   ProductImage productImage) {
         this.sku = sku;
         this.name = name;
         this.brand = brand;
@@ -59,7 +59,6 @@ public class Product {
         this.description = description;
         this.phrase = phrase;
         this.productImage = productImage;
-        this.productObjects = productObjects;
     }
 
     public Long getId() {

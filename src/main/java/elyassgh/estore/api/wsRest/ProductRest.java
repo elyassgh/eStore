@@ -1,8 +1,6 @@
 package elyassgh.estore.api.wsRest;
 
 import elyassgh.estore.api.Beans.Product;
-import elyassgh.estore.api.Beans.ProductImage;
-import elyassgh.estore.api.Beans.ProductObject;
 import elyassgh.estore.api.Services.ProductImageService;
 import elyassgh.estore.api.Services.ProductObjectService;
 import elyassgh.estore.api.Services.ProductService;
@@ -32,6 +30,18 @@ public class ProductRest {
                     @RequestParam(name = "phrase") String phrase)
     {
         return productService.save(sku,name,brand,type,category,description,phrase);
+    }
+
+    @PutMapping("/setThumbImage")
+    public int updateThumbImage(@RequestParam(name = "sku") String sku, @RequestParam(name = "imgId") Long imgId) {
+        return productService.updateThumbImage(sku, productImageService.findById(imgId));
+    }
+
+    @PutMapping("/updateDescOrPhrase")
+    public int updateDescAndPhrase(@RequestParam(name = "sku") String sku,
+                                   @RequestParam(name = "desc") String description,
+                                   @RequestParam(name = "phrase") String phrase) {
+        return productService.updateDescAndPhrase(sku, description, phrase);
     }
 
     @GetMapping(value = "/find",params = "sku")
@@ -70,6 +80,7 @@ public class ProductRest {
     {
         return productService.delete(productService.findBySKU(sku));
     }
+
 
 
 

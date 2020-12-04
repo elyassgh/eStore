@@ -13,6 +13,7 @@ public interface ProductImageService {
     public int upload (MultipartFile uploadedImage, ProductObject productObject) throws IOException;
 
     // ***  Retrieve Service  ***
+    public ProductImage findById(Long id);
     public ProductImage getImage (ProductObject productObject, String name) throws IOException;
     public List<ProductImage> getImages (ProductObject productObject) throws IOException;
 
@@ -20,4 +21,5 @@ public interface ProductImageService {
     public int delete (ProductImage productImage);
 
     // STOPSHIP: 30/09/2020
+    
 }

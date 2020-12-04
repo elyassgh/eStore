@@ -37,6 +37,11 @@ public class ProductImageServiceImpl implements ProductImageService {
     }
 
     @Override
+    public ProductImage findById(Long id) {
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Error"));
+    }
+
+    @Override
     public ProductImage getImage(ProductObject productObject, String name) throws IOException {
         final ProductImage wantedImg = repository.findByProductObjectAndImageName(productObject, name);
         return new ProductImage(wantedImg.getImageName(), wantedImg.getImageType(),

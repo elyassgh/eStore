@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -34,7 +35,31 @@ public class ProductServiceImpl implements ProductService {
     public int updateThumbImage(String sku, ProductImage productImage) {
         Product product = Optional.ofNullable(findBySKU(sku)).orElseThrow(() -> new RuntimeException("Product Not Found"));
         product.setProductImage(productImage);
-        return 0;
+        try {
+            repository.save(product);
+            return 1;
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
+    @Override
+    public int updateDescAndPhrase(String sku, String description, String phrase) {
+        Product product = Optional.ofNullable(findBySKU(sku)).orElseThrow(() -> new RuntimeException("Product Not Found"));
+        if (description==null) {
+            product.setPhrase(phrase);
+            repository.save(product);
+            return 1;
+        } else if (phrase==null) {
+            product.setDescription(description);
+            repository.save(product);
+            return 2;
+        } else {
+            product.setDescription(description);
+            product.setPhrase(phrase);
+            repository.save(product);
+            return 3;
+        }
     }
 
     @Override

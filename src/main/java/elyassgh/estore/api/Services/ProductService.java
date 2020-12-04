@@ -11,6 +11,7 @@ public interface ProductService {
     public int save (String sku, String name, String brand, String type,
                      String category, String description, String phrase);
     public int updateThumbImage (String sku, ProductImage productImage);
+    public int updateDescAndPhrase (String sku, String description, String phrase);
 
     // ***  Read Services  ***
     public Product findBySKU (String sku);

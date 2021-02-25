@@ -2,7 +2,6 @@ package elyassgh.estore.api.Beans;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 public class Favorite {
@@ -12,7 +11,7 @@ public class Favorite {
     private Long id;
 
     // Added date
-    private Date addedAt;
+    private LocalDate addedAt;
 
     // Still Available ?!
     private Boolean isAvailable;
@@ -32,12 +31,8 @@ public class Favorite {
     public Favorite() {
     }
 
-    public Favorite(Long id, Date addedAt, Boolean isAvailable,
-                    LocalDate availableDate, User user, ProductObject productObject) {
-        this.id = id;
-        this.addedAt = addedAt;
-        this.isAvailable = isAvailable;
-        this.availableDate = availableDate;
+    public Favorite(User user, ProductObject productObject) {
+        this.addedAt = LocalDate.now();
         this.user = user;
         this.productObject = productObject;
     }
@@ -50,11 +45,11 @@ public class Favorite {
         this.id = id;
     }
 
-    public Date getAddedAt() {
+    public LocalDate getAddedAt() {
         return addedAt;
     }
 
-    public void setAddedAt(Date added_at) {
+    public void setAddedAt(LocalDate added_at) {
         this.addedAt = added_at;
     }
 

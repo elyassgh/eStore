@@ -43,8 +43,7 @@ public class ProductObject {
     public ProductObject() {
     }
 
-    public ProductObject(Long id, String size, String colour, Integer quantity, Double price, Product product) {
-        this.id = id;
+    public ProductObject(String size, String colour, Integer quantity, Double price, Product product) {
         this.size = size;
         this.colour = colour;
         this.quantity = quantity;

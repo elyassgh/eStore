@@ -1,9 +1,6 @@
 package elyassgh.estore.api.Services;
 
 import elyassgh.estore.api.Beans.Favorite;
-import elyassgh.estore.api.Beans.ProductObject;
-import elyassgh.estore.api.Beans.User;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +8,7 @@ import java.util.Optional;
 public interface FavoriteService {
 
     // ***  Create & Update Services  ***
-    public int save (Favorite favorite);
+    public int save (Long userId, Long productObjectId);
 
     // ***  Read Services  ***
     public Optional<Favorite> findById(Long favoriteId);

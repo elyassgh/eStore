@@ -21,8 +21,10 @@ public class CartServiceImpl implements CartService {
     public UserService userService;
 
     @Override
-    public int save(Cart cart) {
+    public int save(Long id) {
         try {
+            User user = userService.findById(id).orElseThrow(()-> new RuntimeException("User Not Found !")) ;
+            Cart cart = new Cart(user);
             repository.save(cart);
             return 1;
         } catch (Exception e) {

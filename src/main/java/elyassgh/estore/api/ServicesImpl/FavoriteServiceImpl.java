@@ -25,8 +25,11 @@ public class FavoriteServiceImpl implements FavoriteService {
     public ProductObjectService productObjectService;
 
     @Override
-    public int save(Favorite favorite) {
+    public int save(Long userId, Long productObjectId) {
         try {
+            User user = userService.findById(userId).orElseThrow(()-> new RuntimeException("User Not Found !"));
+            ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("ProductObject Not Found !"));
+            Favorite favorite = new Favorite(user , productObject);
             repository.save(favorite);
             return 1;
         } catch (Exception e) {

@@ -3,14 +3,12 @@ package elyassgh.estore.api.ServicesImpl;
 import elyassgh.estore.api.Beans.Product;
 import elyassgh.estore.api.Beans.ProductImage;
 import elyassgh.estore.api.Repositories.ProductRepository;
-import elyassgh.estore.api.Services.ProductImageService;
 import elyassgh.estore.api.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ExecutionException;
 
 @Service
 public class ProductServiceImpl implements ProductService {

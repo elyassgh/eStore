@@ -4,6 +4,7 @@ import elyassgh.estore.api.Beans.ProductImage;
 import elyassgh.estore.api.Beans.ProductObject;
 import elyassgh.estore.api.Repositories.ProductImageRepository;
 import elyassgh.estore.api.Services.ProductImageService;
+import elyassgh.estore.api.Services.ProductObjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,9 +22,12 @@ public class ProductImageServiceImpl implements ProductImageService {
 
     @Autowired
     public ProductImageRepository repository;
+    @Autowired
+    public ProductObjectService productObjectService;
 
     @Override
-    public int upload(MultipartFile uploadedImage, ProductObject productObject) throws IOException {
+    public int upload(MultipartFile uploadedImage, Long productObjectId) throws IOException {
+        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("ProductObject Not Found !"));
         ProductImage image =
                 new ProductImage(uploadedImage.getOriginalFilename(),uploadedImage.getContentType(),
                 compress(uploadedImage.getBytes()), productObject);
@@ -42,14 +46,16 @@ public class ProductImageServiceImpl implements ProductImageService {
     }
 
     @Override
-    public ProductImage getImage(ProductObject productObject, String name) throws IOException {
+    public ProductImage getImage(Long productObjectId, String name) {
+        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("ProductObject Not Found !"));
         final ProductImage wantedImg = repository.findByProductObjectAndImageName(productObject, name);
         return new ProductImage(wantedImg.getImageName(), wantedImg.getImageType(),
                 decompress(wantedImg.getImageBytesArray()), wantedImg.getProductObject() );
     }
 
     @Override
-    public List<ProductImage> getImages(ProductObject productObject) throws IOException {
+    public List<ProductImage> getImages(Long productObjectId) throws IOException {
+        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("ProductObject Not Found !"));
         final List<ProductImage> imgs = repository.findProductImagesByProductObject(productObject);
         List<ProductImage> wantedImgs = new ArrayList<>();
         imgs.forEach( img -> {
@@ -60,8 +66,9 @@ public class ProductImageServiceImpl implements ProductImageService {
     }
 
     @Override
-    public int delete(ProductImage productImage) {
+    public int delete(Long id) {
         try {
+            ProductImage productImage = this.findById(id);
             repository.delete(productImage);
             return 1;
         } catch (Exception e) {

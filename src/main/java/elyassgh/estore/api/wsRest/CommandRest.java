@@ -21,7 +21,7 @@ public class CommandRest {
     @Autowired
     public Command_ItemService command_itemService;
 
-    @PostMapping("/")
+    @PostMapping("/create")
     public int save(@RequestBody Command command) {
         return commandService.save(command);
     }

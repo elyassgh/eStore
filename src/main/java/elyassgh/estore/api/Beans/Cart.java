@@ -29,10 +29,7 @@ public class Cart {
     public Cart() {
     }
 
-    public Cart(Long id, Double amount, Integer cardinal, User user) {
-        this.id = id;
-        this.amount = amount;
-        this.cardinal = cardinal;
+    public Cart(User user) {
         this.user = user;
         this.items = new ArrayList<Cart_Item>();
     }

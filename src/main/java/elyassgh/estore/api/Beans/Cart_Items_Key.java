@@ -7,7 +7,12 @@ import java.util.Objects;
 @Embeddable
 public class Cart_Items_Key implements Serializable {
 
-    @Column(name = "productObject_Id")
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Column(name = "productObject_Id")
     private Long productObjectID;
 
     @Column(name = "cart_Id")

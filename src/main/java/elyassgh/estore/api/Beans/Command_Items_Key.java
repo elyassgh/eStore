@@ -9,6 +9,11 @@ import java.util.Objects;
 @Embeddable
 public class Command_Items_Key implements Serializable {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
     @Column(name = "productObject_Id")
     private Long productObject_ID;
 

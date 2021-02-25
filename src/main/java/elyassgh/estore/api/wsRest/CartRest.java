@@ -19,9 +19,9 @@ public class CartRest {
     @Autowired
     public Cart_ItemService cart_itemService;
 
-    @PostMapping("/")
-    public int save(@RequestBody Cart cart) {
-        return cartService.save(cart);
+    @PostMapping("/create")
+    public int save(@RequestParam(name = "userId") Long id) {
+        return cartService.save(id);
     }
 
     @GetMapping("/user")

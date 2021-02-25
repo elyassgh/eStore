@@ -1,11 +1,12 @@
 package elyassgh.estore.api.Repositories;
 
-import elyassgh.estore.api.Beans.ProductImage;
-import elyassgh.estore.api.Beans.ProductObject;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import elyassgh.estore.api.Beans.ProductImage;
+import elyassgh.estore.api.Beans.ProductObject;
 
 @Repository
 public interface ProductImageRepository extends JpaRepository<ProductImage, Long> {

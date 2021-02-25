@@ -1,13 +1,14 @@
 package elyassgh.estore.api.Repositories;
 
-import elyassgh.estore.api.Beans.Favorite;
-import elyassgh.estore.api.Beans.ProductObject;
-import elyassgh.estore.api.Beans.User;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
-import java.util.List;
+import elyassgh.estore.api.Beans.Favorite;
+import elyassgh.estore.api.Beans.ProductObject;
+import elyassgh.estore.api.Beans.User;
 
 @Repository
 public interface FavoriteRepository extends JpaRepository<Favorite, Long> {

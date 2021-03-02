@@ -4,7 +4,7 @@ import elyassgh.estore.api.Beans.User;
 import elyassgh.estore.api.Repositories.UserRepository;
 import elyassgh.estore.api.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -16,12 +16,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     public UserRepository repository;
 
-    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    // private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Override
     public int save(User user) {
         try {
-            user.setPassword(encoder.encode(user.getPassword()));
+            // user.setPassword(encoder.encode(user.getPassword()));
             repository.save(user);
             return 1;
         } catch (Exception e) {

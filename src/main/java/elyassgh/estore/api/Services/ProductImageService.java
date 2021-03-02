@@ -1,10 +1,11 @@
 package elyassgh.estore.api.Services;
 
-import elyassgh.estore.api.Beans.ProductImage;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import elyassgh.estore.api.Beans.ProductImage;
 
 public interface ProductImageService {
 
@@ -17,7 +18,7 @@ public interface ProductImageService {
     public List<ProductImage> getImages (Long productObjectId) throws IOException;
 
     // ***  Delete Service  ***
-    public int delete (Long name);
+    public int delete (Long id);
 
     // STOPSHIP: 30/09/2020
     

@@ -1,8 +1,16 @@
 package elyassgh.estore.api.Beans;
 
-import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class User {
@@ -22,7 +30,7 @@ public class User {
     @Column(nullable = true , unique = true)
     private String email;
 
-    private Date addedAt;
+    private LocalDateTime addedAt;
 
     @OneToOne(mappedBy = "user")
     private Cart cart;
@@ -37,17 +45,14 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String password, String email,
-                Date addedAt, Cart cart, List<Favorite> favorites,
-                List<Command> commands) {
-        this.id = id;
+    public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.addedAt = addedAt;
-        this.cart = cart;
-        this.favorites = favorites;
-        this.commands = commands;
+        this.addedAt = LocalDateTime.now();
+        this.cart = new Cart();
+        this.favorites = new ArrayList<Favorite>();
+        this.commands = new ArrayList<Command>();
     }
 
     public Long getId() {
@@ -82,11 +87,11 @@ public class User {
         this.email = email;
     }
 
-    public Date getAddedAt() {
+    public LocalDateTime getAddedAt() {
         return addedAt;
     }
 
-    public void setAddedAt(Date addedAt) {
+    public void setAddedAt(LocalDateTime addedAt) {
         this.addedAt = addedAt;
     }
 

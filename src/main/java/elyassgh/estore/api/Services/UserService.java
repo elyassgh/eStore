@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface UserService {
 
     // ***  Create & Update Services  ***
-    public int save (User user);
+    public int save (String username, String email, String password);
 
     // ***  Read Services  ***
     public Optional<User> findById (Long id);

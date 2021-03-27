@@ -29,14 +29,12 @@ public class ProductObject {
     @JoinColumn(name = "product_Id")
     private Product product;
 
-    @OneToMany
+    @OneToMany(mappedBy = "productObject")
     private List<ProductImage> productImages;
 
-    // Needed for mapping purposes --> Ignore it, and don't touch it !
     @OneToMany(mappedBy = "productObject")
     private List<Favorite> favorites;
 
-    // Needed for mapping purposes --> Ignore it, and don't touch it !
     @OneToMany(mappedBy = "productObject")
     private List<Command_Item> items;
 

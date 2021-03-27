@@ -1,14 +1,15 @@
 package elyassgh.estore.api.Services;
 
-import elyassgh.estore.api.Beans.Cart;
-
 import java.util.List;
 import java.util.Optional;
+
+import elyassgh.estore.api.Beans.Cart;
+import elyassgh.estore.api.Beans.User;
 
 public interface CartService {
 
     // ***  Create & Update Services  ***
-    public int save (Long userId);
+    public int save (User user);
 
     // ***  Read Services  ***
     public Optional<Cart> findCartById (Long cartID);

@@ -1,9 +1,9 @@
 package elyassgh.estore.api.Services;
 
+import java.util.List;
+
 import elyassgh.estore.api.Beans.Product;
 import elyassgh.estore.api.Beans.ProductImage;
-
-import java.util.List;
 
 public interface ProductService {
 
@@ -15,6 +15,7 @@ public interface ProductService {
 
     // ***  Read Services  ***
     public Product findBySKU (String sku);
+    public List<Product> findAll();
     public List<Product> findProductsByBrand (String brand);
     public List<Product> findProductsByCategory (String category);
     public List<Product> findProductByCatAndBrand (String category, String brand);

@@ -29,11 +29,11 @@ import io.swagger.annotations.ApiOperation;
 public class ProductRest {
 
     @Autowired
-    ProductService productService;
+    private ProductService productService;
     @Autowired
-    ProductObjectService productObjectService;
+    private ProductObjectService productObjectService;
     @Autowired
-    ProductImageService productImageService;
+    private ProductImageService productImageService;
 
     @ApiOperation("create new product")
     @PostMapping("/")
@@ -57,6 +57,12 @@ public class ProductRest {
         return productService.updateDescAndPhrase(sku, description, phrase);
     }
 
+    @ApiOperation("find all products")
+    @GetMapping(value = "/findAll")
+    public List<Product> findAll() {
+        return productService.findAll();
+    }
+
     @ApiOperation("find a product by its sku")
     @GetMapping(value = "/find", params = "sku")
     public Product findBySKU(@RequestParam(name = "sku") String sku) {
@@ -64,26 +70,26 @@ public class ProductRest {
     }
 
     @ApiOperation("find prodcuts of a brand")
-    @GetMapping(value = "/find", params = "brand")
+    @GetMapping(value = "/findbyc&b", params = "brand")
     public List<Product> findProductsByBrand(@RequestParam(name = "brand") String brand) {
         return productService.findProductsByBrand(brand);
     }
 
     @ApiOperation("find prodcuts of a category")
-    @GetMapping(value = "/find", params = "category")
+    @GetMapping(value = "/findbycat", params = "category")
     public List<Product> findProductsByCategory(@RequestParam(name = "category") String category) {
         return productService.findProductsByCategory(category);
     }
 
     @ApiOperation("find prodcuts of a category & a brand")
-    @GetMapping(value = "/find", params = { "category", "brand" })
+    @GetMapping(value = "/findbybrand", params = { "category", "brand" })
     public List<Product> findProductByCatAndBrand(@RequestParam(name = "category") String category,
             @RequestParam(name = "brand") String brand) {
         return productService.findProductByCatAndBrand(category, brand);
     }
 
     @ApiOperation("find prodcuts of a category & a brand & a type")
-    @GetMapping(value = "/find", params = { "category", "brand", "type" })
+    @GetMapping(value = "/findbycbt", params = { "category", "brand", "type" })
     public List<Product> findProductsByCatAndBrandAndType(@RequestParam(name = "category") String category,
             @RequestParam(name = "brand") String brand, @RequestParam(name = "type") String type) {
         return productService.findProductsByCatAndBrandAndType(category, brand, type);

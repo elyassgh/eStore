@@ -22,6 +22,7 @@ public class ProductImageServiceImpl implements ProductImageService {
 
     @Autowired
     public ProductImageRepository repository;
+
     @Autowired
     public ProductObjectService productObjectService;
 

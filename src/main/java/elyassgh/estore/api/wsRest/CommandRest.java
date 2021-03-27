@@ -27,10 +27,10 @@ import io.swagger.annotations.ApiOperation;
 public class CommandRest {
 
     @Autowired
-    public CommandService commandService;
+    private CommandService commandService;
 
     @Autowired
-    public Command_ItemService command_itemService;
+    private Command_ItemService command_itemService;
 
     @ApiOperation("create new command")
     @PostMapping("/create")

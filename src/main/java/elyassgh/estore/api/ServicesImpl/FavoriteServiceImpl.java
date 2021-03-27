@@ -19,8 +19,10 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Autowired
     public FavoriteRepository repository;
+
     @Autowired
     public UserService userService;
+
     @Autowired
     public ProductObjectService productObjectService;
 

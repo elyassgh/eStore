@@ -1,8 +1,16 @@
 package elyassgh.estore.api.Beans;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "images")
 public class ProductImage {
 
     @Id
@@ -20,7 +28,6 @@ public class ProductImage {
     @Column(length = 1000)
     private byte[] imageBytesArray;
 
-    //Fk to ProductObject
     @ManyToOne
     @JoinColumn(name = "productObject_Id")
     private ProductObject productObject;

@@ -66,6 +66,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> findAll() {
+        return repository.findAll();
+    }
+
+    @Override
     public List<Product> findProductsByBrand(String brand) {
         return repository.findProductsByBrand(brand);
     }

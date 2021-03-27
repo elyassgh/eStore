@@ -1,14 +1,16 @@
 package elyassgh.estore.api.ServicesImpl;
 
-import elyassgh.estore.api.Beans.User;
-import elyassgh.estore.api.Repositories.UserRepository;
-import elyassgh.estore.api.Services.UserService;
+import java.util.Date;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.Optional;
+import elyassgh.estore.api.Beans.User;
+import elyassgh.estore.api.Repositories.UserRepository;
+import elyassgh.estore.api.Services.CartService;
+import elyassgh.estore.api.Services.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -16,13 +18,17 @@ public class UserServiceImpl implements UserService {
     @Autowired
     public UserRepository repository;
 
+    @Autowired
+    public CartService cartService;
+
     // private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Override
-    public int save(String username, String email, String password) {
+    public int save(String username, String password, String email) {
         try {
-            User user = new User(username, email, password);
-            // user.setPassword(encoder.encode(user.getPassword()));
+            User user = new User(username, password, email);
+            cartService.save(user);
+           // user.setPassword(encoder.encode(user.getPassword()));
             repository.save(user);
             return 1;
         } catch (Exception e) {

@@ -21,13 +21,13 @@ import io.swagger.annotations.ApiOperation;
 public class UserRest {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @ApiOperation("create a new user")
     @PostMapping("/register")
     public int save(@RequestParam(name = "username") String username, @RequestParam(name = "email") String email,
             @RequestParam(name = "password") String password) {
-        return userService.save(username, email, password);
+        return userService.save(username, password, email);
     }
 
     @ApiOperation("find a certain user")

@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiOperation;
 public class FavoriteRest {
 
     @Autowired
-    FavoriteService favoriteService;
+    private FavoriteService favoriteService;
 
     @PostMapping("/add")
     @ApiOperation("add an item to favorite")

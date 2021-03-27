@@ -50,7 +50,6 @@ public class User {
         this.password = password;
         this.email = email;
         this.addedAt = LocalDateTime.now();
-        this.cart = new Cart();
         this.favorites = new ArrayList<Favorite>();
         this.commands = new ArrayList<Command>();
     }

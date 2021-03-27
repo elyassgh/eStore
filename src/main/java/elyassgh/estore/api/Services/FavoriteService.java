@@ -1,9 +1,10 @@
 package elyassgh.estore.api.Services;
 
-import elyassgh.estore.api.Beans.Favorite;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import elyassgh.estore.api.Beans.Favorite;
 
 public interface FavoriteService {
 

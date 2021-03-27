@@ -1,8 +1,16 @@
 package elyassgh.estore.api.Beans;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Cart {
@@ -31,6 +39,8 @@ public class Cart {
 
     public Cart(User user) {
         this.user = user;
+        this.amount = 0.0;
+        this.cardinal = 0;
         this.items = new ArrayList<Cart_Item>();
     }
 

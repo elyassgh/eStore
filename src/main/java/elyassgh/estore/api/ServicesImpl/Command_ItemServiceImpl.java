@@ -24,24 +24,15 @@ public class Command_ItemServiceImpl implements Command_ItemService {
     public CommandService commandService;
 
     @Override
-    public int save(Long productObjectId, String crf, Integer quantity) {
-        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("Product Object Not Found!") );
-        Command command = commandService.findByCrf(crf);
-        if (command == null) throw new RuntimeException("Command Not Found!");
-        try {
-            repository.save(new Command_Item(productObject, command, quantity));
-            return 1;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return -1;
-        }
+    public void save(Command_Item item) {
+        repository.save(item);
     }
 
     @Override
     public Command_Item findByCmdAndPO(String crf, Long productObjectId) {
         ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("Product Object Not Found!") );
         Command command = commandService.findByCrf(crf);
-        if (command == null) throw new RuntimeException("Command Not Found!");
+        if (command == null) throw new RuntimeException("Command Not Found !");
         return repository.findByCommandAndProductObject(command,productObject);
     }
 

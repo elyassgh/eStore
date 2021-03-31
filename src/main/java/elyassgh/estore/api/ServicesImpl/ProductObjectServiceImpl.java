@@ -25,7 +25,7 @@ public class ProductObjectServiceImpl implements ProductObjectService {
     public int save(String sku, String size, String colour, Integer quantity, Double price) {
 
         Product product = Optional.ofNullable(productService.findBySKU(sku))
-        .orElseThrow(() -> new RuntimeException("Product Not Found"));
+                .orElseThrow(() -> new RuntimeException("Product Not Found"));
 
         ProductObject productObject = new ProductObject(size, colour, quantity, price, product);
 
@@ -47,7 +47,7 @@ public class ProductObjectServiceImpl implements ProductObjectService {
     public List<ProductObject> findPOsOfProduct(String sku) {
 
         Product product = Optional.ofNullable(productService.findBySKU(sku))
-        .orElseThrow(() -> new RuntimeException("Product Not Found"));
+                .orElseThrow(() -> new RuntimeException("Product Not Found"));
 
         return repository.findProductObjectsByProduct(product);
     }
@@ -56,7 +56,7 @@ public class ProductObjectServiceImpl implements ProductObjectService {
     public List<ProductObject> findPOsOfProductAndQtyGE(String sku, Integer quantity) {
 
         Product product = Optional.ofNullable(productService.findBySKU(sku))
-        .orElseThrow(() -> new RuntimeException("Product Not Found"));
+                .orElseThrow(() -> new RuntimeException("Product Not Found"));
 
         return repository.findByProductAndQuantityGreaterThanEqual(product, quantity);
     }
@@ -79,8 +79,9 @@ public class ProductObjectServiceImpl implements ProductObjectService {
     @Override
     public int delete(Long productObjectId) {
 
-        ProductObject productObject = repository.findById(productObjectId).orElseThrow(()-> new RuntimeException("ProductObject Not Found !"));
-        
+        ProductObject productObject = repository.findById(productObjectId)
+                .orElseThrow(() -> new RuntimeException("ProductObject Not Found !"));
+
         try {
             repository.save(productObject);
             return 1;

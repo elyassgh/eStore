@@ -29,7 +29,7 @@ public class CartRest {
         return cartService.findCartByUser(id);
     }
 
-    @ApiOperation("find non emty carts with items more than ?")
+    @ApiOperation("find non empty carts with items more than ?")
     @GetMapping("/carts")
     public List<Cart> findCartsWithItemsMoreThan(@RequestParam(name = "nbr_items") Integer nbr_items) {
         return cartService.findCartsWithItemsMoreThan(nbr_items);
@@ -40,7 +40,7 @@ public class CartRest {
     // key to User)
     @DeleteMapping("/delete")
     public int delete(@RequestParam(name = "cartId") Long cartId) {
-        Cart cart = cartService.findCartById(cartId).orElseThrow(() -> new RuntimeException("Cart Not Found"));
+        Cart cart = cartService.findCartById(cartId).orElseThrow(() -> new RuntimeException("Cart Not Found !"));
         return cartService.delete(cart);
     }
 

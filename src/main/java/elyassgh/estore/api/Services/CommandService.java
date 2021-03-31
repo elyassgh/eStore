@@ -8,7 +8,9 @@ import elyassgh.estore.api.Beans.Command;
 public interface CommandService {
 
     // ***  Create & Update Services  ***
-    public int save (Command command);
+    public int save (Long cartId, String billingAdr, String billingEmail,
+                    String shippingAdr, Double shippingFees);
+    public void confirm (String crf);
 
     // ***  Read Services  ***
     public Command findByCrf (String crf);

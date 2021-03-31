@@ -38,7 +38,6 @@ public class FavoriteRest {
     public List<Favorite> findFavsOfUser(@RequestParam(name = "userId") Long userId) {
         return favoriteService.findFavsOfUser(userId);
     }
-
     
     @ApiOperation("count all favorites containing a product object")
     @GetMapping("/count")

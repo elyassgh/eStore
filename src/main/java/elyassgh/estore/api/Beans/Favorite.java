@@ -42,6 +42,7 @@ public class Favorite {
         this.addedAt = LocalDate.now();
         this.user = user;
         this.productObject = productObject;
+        if(productObject.getQuantity() > 1) this.isAvailable=true; else isAvailable=false;
     }
 
     public Long getId() {

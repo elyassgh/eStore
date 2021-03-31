@@ -10,6 +10,7 @@ public interface CartService {
 
     // ***  Create & Update Services  ***
     public int save (User user);
+    public int update(Cart cart);
 
     // ***  Read Services  ***
     public Optional<Cart> findCartById (Long cartID);

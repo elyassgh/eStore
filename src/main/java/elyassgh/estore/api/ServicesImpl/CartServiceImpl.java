@@ -1,6 +1,7 @@
 package elyassgh.estore.api.ServicesImpl;
 
 import elyassgh.estore.api.Beans.Cart;
+import elyassgh.estore.api.Beans.Cart_Item;
 import elyassgh.estore.api.Beans.User;
 import elyassgh.estore.api.Repositories.CartRepository;
 import elyassgh.estore.api.Services.CartService;
@@ -33,13 +34,28 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public int update(Cart cart) {
+        try {
+            Double amount = 0.0;
+            cart.setCardinal(cart.getItems().size());
+            for (Cart_Item item : cart.getItems()) {
+                amount += item.getWantedQuantity() * item.getProductObject().getPrice();
+            }
+            cart.setAmount(amount);
+            return 1;
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
+    @Override
     public Optional<Cart> findCartById(Long cartID) {
         return repository.findById(cartID);
     }
 
     @Override
     public Cart findCartByUser(Long id) {
-        User user = userService.findById(id).orElseThrow(()-> new RuntimeException("User Not Found !")) ;
+        User user = userService.findById(id).orElseThrow(() -> new RuntimeException("User Not Found !"));
         return repository.findCartByUser(user);
     }
 
@@ -47,7 +63,6 @@ public class CartServiceImpl implements CartService {
     public List<Cart> findCartsWithItemsMoreThan(Integer nbr_items) {
         return repository.findByCardinalGreaterThanOrderByAmountDesc(nbr_items);
     }
-
 
     @Override
     public int delete(Cart cart) {
@@ -59,4 +74,5 @@ public class CartServiceImpl implements CartService {
             return -1;
         }
     }
+
 }

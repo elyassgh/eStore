@@ -9,7 +9,7 @@ import elyassgh.estore.api.Beans.Command_Item;
 public interface Command_ItemService {
 
     // ***  Create & Update Services  ***
-    public int save(Long productObjectId, String crf, Integer quantity);
+    public void save(Command_Item item);
 
     // ***  Read Services  ***
     public Command_Item findByCmdAndPO(String crf, Long productObjectId);

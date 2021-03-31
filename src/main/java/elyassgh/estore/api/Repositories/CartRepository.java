@@ -17,5 +17,4 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
     // --> for non empty carts  ( cardinal > 0 ) <=> nbr = 0
     List<Cart> findByCardinalGreaterThanOrderByAmountDesc(Integer nbr);
 
-
 }

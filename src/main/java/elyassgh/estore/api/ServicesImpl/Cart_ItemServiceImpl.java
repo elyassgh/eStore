@@ -26,10 +26,11 @@ public class Cart_ItemServiceImpl implements Cart_ItemService {
 
     @Override
     public int save(Long productObjectId, Long cartId, Integer quantity) {
-        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("Product Object Not Found") );
+        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("Product Object Not Found!") );
         Cart cart = cartService.findCartById(cartId).orElseThrow(()-> new RuntimeException("Cart Not Found"));
             try {
                 repository.save(new Cart_Item(productObject, cart, quantity));
+                cartService.update(cart);
                 return 1;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -41,7 +42,7 @@ public class Cart_ItemServiceImpl implements Cart_ItemService {
     @Override
     public int update(Long productObjectId, Long cartId, Integer quantity) {
         Cart cart = cartService.findCartById(cartId).orElseThrow(()-> new RuntimeException("Cart Not Found"));
-        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("Product Object Not Found") );
+        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("Product Object Not Found !") );
         try {
             Cart_Item item = repository.findCart_ItemByCartAndProductObject(cart, productObject);
             item.setWantedQuantity(quantity);
@@ -55,7 +56,7 @@ public class Cart_ItemServiceImpl implements Cart_ItemService {
 
     @Override
     public Cart_Item findByCartAndPO(Long cartId, Long productObjectId) {
-        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("Product Object Not Found"));
+        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("Product Object Not Found !"));
         Cart cart = cartService.findCartById(cartId).orElseThrow(()-> new RuntimeException("Cart Not found"));
         return repository.findCart_ItemByCartAndProductObject(cart,productObject);
     }
@@ -64,7 +65,6 @@ public class Cart_ItemServiceImpl implements Cart_ItemService {
     public List<Cart_Item> findCart_ItemsByCart(Cart cart) {
         return repository.findCart_ItemsByCart(cart);
     }
-
 
     @Override
     public int delete(Cart_Item cart_item) {

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,8 +33,15 @@ public class CommandRest {
 
     @ApiOperation("create new command")
     @PostMapping("/create")
-    public int save(@RequestBody Command command) {
-        return commandService.save(command);
+    public int save(@RequestParam(name = "cart") Long cartId, @RequestParam(name = "billAdr") String billingAdr,
+            @RequestParam(name = "bilEmail") String billingEmail, @RequestParam(name = "shipAdr") String shippingAdr,
+            @RequestParam(name = "shipFees") Double shippingFees) {
+        return commandService.save(cartId, billingAdr, billingEmail, shippingAdr, shippingFees);
+    }
+
+    @ApiOperation("confirm a command")
+    public void confirm(@RequestParam(name = "orderRef") String crf) {
+        commandService.confirm(crf);
     }
 
     @ApiOperation("find an order by its reference")
@@ -83,7 +89,7 @@ public class CommandRest {
     @ApiOperation("find revenue of a period")
     @GetMapping("/revenue/{start}-{end}")
     public Double revenueOfPeriod(@PathVariable Date start, @PathVariable Date end,
-                                  @RequestParam(name = "status") String status) {
+            @RequestParam(name = "status") String status) {
         return commandService.revenueOfPeriod(start, end, status);
     }
 
@@ -95,16 +101,15 @@ public class CommandRest {
 
     @ApiOperation("find revenue of a user in a period")
     @GetMapping("/user/revenue/{start}-{end}")
-    public Double revenueOfUser(@RequestParam(name = "username") String username,
-                                @PathVariable Date start, @PathVariable Date end) {
+    public Double revenueOfUser(@RequestParam(name = "username") String username, @PathVariable Date start,
+            @PathVariable Date end) {
         return commandService.revenueOfUser(username, start, end);
     }
 
     @ApiOperation("find revenue of a user in a period by orders's status")
     @GetMapping("/user/revenue/{start}-{end}/{status}")
-    public Double revenueOfUser(@RequestParam(name = "username") String username,
-                                @PathVariable Date start, @PathVariable Date end,
-                                @PathVariable String status) {
+    public Double revenueOfUser(@RequestParam(name = "username") String username, @PathVariable Date start,
+            @PathVariable Date end, @PathVariable String status) {
         return commandService.revenueOfUser(username, start, end, status);
     }
 
@@ -117,7 +122,7 @@ public class CommandRest {
     @ApiOperation("find all orders billing emails in a period")
     @GetMapping("/emails/{start}-{end}/{status}")
     public List<String> cmdEmailsListOfPeriod(@PathVariable Date start, @PathVariable Date end,
-                                              @PathVariable String status) {
+            @PathVariable String status) {
         return commandService.cmdEmailsListOfPeriod(start, end, status);
     }
 
@@ -132,15 +137,6 @@ public class CommandRest {
     public List<Command_Item> findCmdItemsOfCmd(@RequestParam(name = "orderRef") String crf) {
         Command command = commandService.findByCrf(crf);
         return command_itemService.findCmdItemsOfCmd(command);
-    }
-
-    @ApiOperation("add a quantity of an item in an order")
-    @PostMapping("/items/add")
-    public int addItem(@RequestParam(name = "poId") Long productObjectId,
-                       @RequestParam(name = "crf") String crf,
-                       @RequestParam(name = "qty") Integer quantity)
-    {
-        return command_itemService.save(productObjectId, crf, quantity);
     }
 
     @ApiOperation("find ordered quantity of product object")
@@ -158,23 +154,20 @@ public class CommandRest {
     @ApiOperation("find ordered quantity of product object by orders's status in a period")
     @GetMapping("/product/{productObjId}/qty/{status}-commands/{start}-{end}")
     public Integer commandedQtyOfPO(@PathVariable Long productObjId, @PathVariable String status,
-                                    @PathVariable Date start, @PathVariable Date end) {
+            @PathVariable Date start, @PathVariable Date end) {
         return command_itemService.commandedQtyOfPO(productObjId, status, start, end);
     }
 
     @ApiOperation("find ordered quantity of product object in an order")
     @GetMapping("/items/{productObjId}/qty")
-    public Integer commandedQtyOfPOInCmd(@PathVariable Long productObjId,
-                                         @RequestParam(name = "orderRef") String crf) {
+    public Integer commandedQtyOfPOInCmd(@PathVariable Long productObjId, @RequestParam(name = "orderRef") String crf) {
         return command_itemService.commandedQtyOfPOInCmd(productObjId, crf);
     }
 
-    
     // Could be used for order canceling
     @ApiOperation("delete an item in an order !!")
     @DeleteMapping("/items/delete")
-    public int delete(@RequestParam(name = "poId") Long productObjId,
-                      @RequestParam(name = "orderRef") String crf) {
+    public int delete(@RequestParam(name = "poId") Long productObjId, @RequestParam(name = "orderRef") String crf) {
         Command_Item command_item = command_itemService.findByCmdAndPO(crf, productObjId);
         return command_itemService.delete(command_item);
     }
@@ -183,7 +176,8 @@ public class CommandRest {
     @ApiOperation("delete all items of an order !!")
     @DeleteMapping("/items/deleteAll")
     public int deleteBatch(@RequestParam(name = "orderRef") String crf) {
-        Command command = Optional.ofNullable(commandService.findByCrf(crf)).orElseThrow(() -> new RuntimeException("Command Not Found!"));
+        Command command = Optional.ofNullable(commandService.findByCrf(crf))
+                .orElseThrow(() -> new RuntimeException("Command Not Found!"));
         List<Command_Item> items = command_itemService.findCmdItemsOfCmd(command);
         return command_itemService.deleteBatch(items);
     }

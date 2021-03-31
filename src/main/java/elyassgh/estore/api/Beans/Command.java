@@ -28,6 +28,7 @@ public class Command {
     private Date date;
 
     // Command Confirmation timestamps
+    @Column(name = "confirmation_stamps")
     private LocalDateTime timestamps;
 
     // Billing Address
@@ -45,9 +46,6 @@ public class Command {
     // Command Total price
     private Double amount;
 
-    // Command number of items
-    private Integer cardinal;
-
     // Command Status ( In processes, Sent, Shipped Or Canceled )
     private String cmdStatus;
 
@@ -61,23 +59,17 @@ public class Command {
     public Command() {
     }
 
-    public Command(Long id, String crf, Date date, LocalDateTime timestamps , String billingAdr,
+    public Command(String crf, String billingAdr,
                    String billingEmail, String shippingAdr, Double shippingFees,
-                   Double amount, Integer cardinal, String cmdStatus, User user,
-                   List<Command_Item> items) {
-        this.id = id;
+                   Double amount, String cmdStatus) {
         this.crf = crf;
-        this.date = date;
-        this.timestamps = timestamps;
+        this.date = new Date();
         this.billingAdr = billingAdr;
         this.billingEmail = billingEmail;
         this.shippingAdr = shippingAdr;
         this.shippingFees = shippingFees;
         this.amount = amount;
-        this.cardinal = cardinal;
         this.cmdStatus = cmdStatus;
-        this.user = user;
-        this.items = items;
     }
 
     public Long getId() {
@@ -150,14 +142,6 @@ public class Command {
 
     public void setAmount(Double amount) {
         this.amount = amount;
-    }
-
-    public Integer getCardinal() {
-        return cardinal;
-    }
-
-    public void setCardinal(Integer cardinal) {
-        this.cardinal = cardinal;
     }
 
     public String getCmdStatus() {

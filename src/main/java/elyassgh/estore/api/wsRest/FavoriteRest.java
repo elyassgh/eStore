@@ -70,7 +70,7 @@ public class FavoriteRest {
     }
 
     @ApiOperation("delete a favorite item")    
-    @DeleteMapping("/delete")
+    @DeleteMapping("/item/delete")
     public int delete(@RequestParam(name = "favId") Long favoriteId) {
         Favorite favorite = favoriteService.findById(favoriteId).orElseThrow(()-> new RuntimeException("Error"));
         return favoriteService.delete(favorite);

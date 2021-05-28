@@ -24,7 +24,7 @@ public class CartRest {
     private Cart_ItemService cart_itemService;
 
     @ApiOperation("get user cart")
-    @GetMapping("/user")
+    @GetMapping("/ofuser")
     public Cart findCartByUser(@RequestParam(name = "userId") Long id) {
         return cartService.findCartByUser(id);
     }
@@ -35,9 +35,15 @@ public class CartRest {
         return cartService.findCartsWithItemsMoreThan(nbr_items);
     }
 
+    @ApiOperation("refresh a cart")
+    @PutMapping("/refresh")
+    public int update(Cart cart) {
+        return cartService.update(cart);
+    }
+
     @ApiOperation("WARNING !! : delete a cart")
-    // IMPORTANT --> Not Recommended to use it :) Why? --> (Cart Represent a foreign
-    // key to User)
+    // IMPORTANT --> Not Recommended to use it :) Why? --> (Cart Represent a one to one 
+    // relationship to User)
     @DeleteMapping("/delete")
     public int delete(@RequestParam(name = "cartId") Long cartId) {
         Cart cart = cartService.findCartById(cartId).orElseThrow(() -> new RuntimeException("Cart Not Found !"));

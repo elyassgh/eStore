@@ -3,14 +3,21 @@ package elyassgh.estore.api.ServicesImpl;
 import java.util.Date;
 import java.util.Optional;
 
+import elyassgh.estore.api.Beans.Role;
+import elyassgh.estore.api.Security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import elyassgh.estore.api.Beans.User;
 import elyassgh.estore.api.Repositories.UserRepository;
 import elyassgh.estore.api.Services.CartService;
 import elyassgh.estore.api.Services.UserService;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,14 +28,41 @@ public class UserServiceImpl implements UserService {
     @Autowired
     public CartService cartService;
 
-    // private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Override
-    public int save(String username, String password, String email) {
+    public String signin(String username, String password) {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            return jwtTokenProvider.createToken(username, repository.findUserByUsername(username).getRoles());
+        } catch (AuthenticationException e) {
+            throw new RuntimeException(("Invalid username/password supplied"));
+        }
+    }
+
+    @Override
+    public User whoami(HttpServletRequest req) {
+        return repository.findUserByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
+    }
+
+    @Override
+    public String refresh(String username) {
+        return jwtTokenProvider.createToken(username, repository.findUserByUsername(username).getRoles());
+    }
+
+    @Override
+    public int save(String username, String password, String email, Boolean isAdmin) {
         try {
             User user = new User(username, password, email);
             cartService.save(user);
-           // user.setPassword(encoder.encode(user.getPassword()));
+            user.setPassword(encoder.encode(user.getPassword()));
+            if(isAdmin) user.getRoles().add(Role.ROLE_ADMIN);
             repository.save(user);
             return 1;
         } catch (Exception e) {

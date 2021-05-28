@@ -4,13 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class User {
@@ -38,9 +32,12 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Favorite> favorites;
 
-
     @OneToMany(mappedBy = "user")
     private List<Command> commands;  // --> Orders List ;)
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "User_roles", joinColumns = @JoinColumn(name = "User_Id"))
+    List<Role> roles;
 
     public User() {
     }
@@ -52,6 +49,8 @@ public class User {
         this.addedAt = LocalDateTime.now();
         this.favorites = new ArrayList<Favorite>();
         this.commands = new ArrayList<Command>();
+        this.roles = new ArrayList<Role>();
+        this.roles.add(Role.ROLE_CLIENT);
     }
 
     public Long getId() {
@@ -116,5 +115,13 @@ public class User {
 
     public void setCommands(List<Command> commands) {
         this.commands = commands;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

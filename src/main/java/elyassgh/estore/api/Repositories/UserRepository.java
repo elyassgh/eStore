@@ -24,4 +24,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT COUNT (u) FROM User u WHERE u.addedAt BETWEEN ?1 AND ?2")
     Long userCount(Date start, Date end);
 
+    // Test the existence of a user
+    boolean existsByUsername(String username);
+
+
 }

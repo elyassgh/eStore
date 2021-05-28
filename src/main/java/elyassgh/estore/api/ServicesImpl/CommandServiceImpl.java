@@ -35,7 +35,7 @@ public class CommandServiceImpl implements CommandService {
     @Autowired
     public Command_ItemService cmdItemService;
 
-    private ZoneId zone = ZoneId.of("Casablanca/Africa");
+    private final ZoneId zone = ZoneId.of("GMT+1");
 
     @Override
     public int save(Long cartId, String billingAdr, String billingEmail, String shippingAdr, Double shippingFees) {
@@ -64,9 +64,9 @@ public class CommandServiceImpl implements CommandService {
 
     @Override
     public void confirm(String crf) {
-        Command commande = repository.findByCrf(crf);
-        commande.setTimestamps(LocalDateTime.now());
-        repository.save(commande);
+        Command command = repository.findByCrf(crf);
+        command.setTimestamps(LocalDateTime.now());
+        repository.save(command);
     }
 
     @Override

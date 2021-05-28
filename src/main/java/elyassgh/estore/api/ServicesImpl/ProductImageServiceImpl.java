@@ -28,7 +28,7 @@ public class ProductImageServiceImpl implements ProductImageService {
 
     @Override
     public int upload(MultipartFile uploadedImage, Long productObjectId) throws IOException {
-        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("ProductObject Not Found !"));
+        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("ProductObject Not Found"));
         ProductImage image =
                 new ProductImage(uploadedImage.getOriginalFilename(),uploadedImage.getContentType(),
                 compress(uploadedImage.getBytes()), productObject);

@@ -3,6 +3,7 @@ package elyassgh.estore.api.ServicesImpl;
 import elyassgh.estore.api.Beans.Favorite;
 import elyassgh.estore.api.Beans.ProductObject;
 import elyassgh.estore.api.Beans.User;
+import elyassgh.estore.api.Exception.classes.NotFoundException;
 import elyassgh.estore.api.Repositories.FavoriteRepository;
 import elyassgh.estore.api.Services.FavoriteService;
 import elyassgh.estore.api.Services.ProductObjectService;
@@ -29,8 +30,8 @@ public class FavoriteServiceImpl implements FavoriteService {
     @Override
     public int save(Long userId, Long productObjectId) {
         try {
-            User user = userService.findById(userId).orElseThrow(()-> new RuntimeException("User Not Found !"));
-            ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("ProductObject Not Found !"));
+            User user = userService.findById(userId).orElseThrow(()-> new NotFoundException("User #"+ userId +" Not Found"));
+            ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new NotFoundException("ProductObject #"+ productObjectId +" Not Found"));
             Favorite favorite = new Favorite(user , productObject);
             repository.save(favorite);
             return 1;
@@ -47,13 +48,13 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Override
     public List<Favorite> findFavsOfUser(Long userId) {
-        User user = userService.findById(userId).orElseThrow(()-> new RuntimeException("User Not Found !"));
+        User user = userService.findById(userId).orElseThrow(()-> new NotFoundException("User #"+ userId +" Not Found"));
         return repository.findFavoritesByUser(user);
     }
 
     @Override
     public Integer countFavsByPO(Long productObjectId) {
-        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("ProductObject Not Found !"));
+        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new NotFoundException("ProductObject #"+ productObjectId +" Not Found"));
         return repository.countFavoritesByProductObject(productObject);
     }
 

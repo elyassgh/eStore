@@ -2,6 +2,7 @@ package elyassgh.estore.api.ServicesImpl;
 
 import elyassgh.estore.api.Beans.Product;
 import elyassgh.estore.api.Beans.ProductObject;
+import elyassgh.estore.api.Exception.classes.NotFoundException;
 import elyassgh.estore.api.Repositories.ProductObjectRepository;
 import elyassgh.estore.api.Services.ProductObjectService;
 import elyassgh.estore.api.Services.ProductService;
@@ -25,7 +26,7 @@ public class ProductObjectServiceImpl implements ProductObjectService {
     public int save(String sku, String size, String colour, Integer quantity, Double price) {
 
         Product product = Optional.ofNullable(productService.findBySKU(sku))
-                .orElseThrow(() -> new RuntimeException("Product Not Found"));
+                .orElseThrow(() -> new NotFoundException("Product #"+ sku +" Not Found"));
 
         ProductObject productObject = new ProductObject(size, colour, quantity, price, product);
 
@@ -47,7 +48,7 @@ public class ProductObjectServiceImpl implements ProductObjectService {
     public List<ProductObject> findPOsOfProduct(String sku) {
 
         Product product = Optional.ofNullable(productService.findBySKU(sku))
-                .orElseThrow(() -> new RuntimeException("Product Not Found"));
+                .orElseThrow(() -> new NotFoundException("Product #"+ sku +" Not Found"));
 
         return repository.findProductObjectsByProduct(product);
     }
@@ -80,7 +81,7 @@ public class ProductObjectServiceImpl implements ProductObjectService {
     public int delete(Long productObjectId) {
 
         ProductObject productObject = repository.findById(productObjectId)
-                .orElseThrow(() -> new RuntimeException("ProductObject Not Found !"));
+                .orElseThrow(() -> new NotFoundException("ProductObject #"+ productObjectId +" Not Found"));
 
         try {
             repository.save(productObject);

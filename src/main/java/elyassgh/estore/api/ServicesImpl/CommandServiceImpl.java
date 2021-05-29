@@ -7,6 +7,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
+import elyassgh.estore.api.Exception.classes.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +41,7 @@ public class CommandServiceImpl implements CommandService {
     @Override
     public int save(Long cartId, String billingAdr, String billingEmail, String shippingAdr, Double shippingFees) {
 
-        Cart cart = cartService.findCartById(cartId).orElseThrow(()-> new RuntimeException("Cart Not found"));
+        Cart cart = cartService.findCartById(cartId).orElseThrow(()-> new NotFoundException("Cart #"+ cartId +"Not found"));
 
         String ref = LocalTime.now(zone).toString() + "/" + cart.getUser().getId().toString() + "/"
                 + LocalDate.now(zone);
@@ -76,7 +77,7 @@ public class CommandServiceImpl implements CommandService {
 
     @Override
     public List<Command> findCmdsOfUser(Long userId) {
-        User user = userService.findById(userId).orElseThrow(() -> new RuntimeException("User Not Found"));
+        User user = userService.findById(userId).orElseThrow(() -> new RuntimeException("User"+ userId +" Not Found"));
         return repository.findCommandsByUser(user);
     }
 

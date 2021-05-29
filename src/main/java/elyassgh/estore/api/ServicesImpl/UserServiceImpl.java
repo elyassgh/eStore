@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Optional;
 
 import elyassgh.estore.api.Beans.Role;
+import elyassgh.estore.api.Exception.classes.UnauthorizedException;
 import elyassgh.estore.api.Security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -37,12 +38,12 @@ public class UserServiceImpl implements UserService {
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Override
-    public String signin(String username, String password) {
+    public String login(String username, String password) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             return jwtTokenProvider.createToken(username, repository.findUserByUsername(username).getRoles());
         } catch (AuthenticationException e) {
-            throw new RuntimeException(("Invalid username/password supplied"));
+            throw new UnauthorizedException("Invalid username/password supplied");
         }
     }
 

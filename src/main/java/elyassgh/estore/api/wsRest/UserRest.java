@@ -71,7 +71,7 @@ public class UserRest {
     @PostMapping("/authenticate")
     public String login(@RequestParam(name = "username") String username,
                          @RequestParam(name = "password")String password) {
-        return userService.signin(username, password);
+        return userService.login(username, password);
     }
 
     @ApiOperation("Return the authenticated user")

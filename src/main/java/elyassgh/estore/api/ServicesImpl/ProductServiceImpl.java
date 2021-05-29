@@ -2,6 +2,7 @@ package elyassgh.estore.api.ServicesImpl;
 
 import elyassgh.estore.api.Beans.Product;
 import elyassgh.estore.api.Beans.ProductImage;
+import elyassgh.estore.api.Exception.classes.NotFoundException;
 import elyassgh.estore.api.Repositories.ProductRepository;
 import elyassgh.estore.api.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public int updateThumbImage(String sku, ProductImage productImage) {
-        Product product = Optional.ofNullable(findBySKU(sku)).orElseThrow(() -> new RuntimeException("Product Not Found"));
+        Product product = Optional.ofNullable(findBySKU(sku)).orElseThrow(() -> new NotFoundException("Product #"+ sku +" Not Found"));
         product.setProductImage(productImage);
         try {
             repository.save(product);
@@ -43,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public int updateDescAndPhrase(String sku, String description, String phrase) {
-        Product product = Optional.ofNullable(findBySKU(sku)).orElseThrow(() -> new RuntimeException("Product Not Found"));
+        Product product = Optional.ofNullable(findBySKU(sku)).orElseThrow(() -> new NotFoundException("Product #"+ sku +" Not Found"));
         if (description==null) {
             product.setPhrase(phrase);
             repository.save(product);

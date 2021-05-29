@@ -1,6 +1,7 @@
 package elyassgh.estore.api.ServicesImpl;
 
 import elyassgh.estore.api.Beans.*;
+import elyassgh.estore.api.Exception.classes.NotFoundException;
 import elyassgh.estore.api.Repositories.Command_ItemRepository;
 import elyassgh.estore.api.Services.CommandService;
 import elyassgh.estore.api.Services.Command_ItemService;
@@ -30,10 +31,10 @@ public class Command_ItemServiceImpl implements Command_ItemService {
 
     @Override
     public Command_Item findByCmdAndPO(String crf, Long productObjectId) {
-        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("Product Object Not Found!") );
+        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new NotFoundException("ProductObject #"+ productObjectId +" Not Found") );
         Command command = commandService.findByCrf(crf);
-        if (command == null) throw new RuntimeException("Command Not Found !");
-        return repository.findByCommandAndProductObject(command,productObject);
+        if (command == null) throw new NotFoundException("Command #"+ crf +" Not Found");
+        return repository.findByCommandAndProductObject(command, productObject);
     }
 
     @Override

@@ -3,6 +3,7 @@ package elyassgh.estore.api.ServicesImpl;
 import elyassgh.estore.api.Beans.Cart;
 import elyassgh.estore.api.Beans.Cart_Item;
 import elyassgh.estore.api.Beans.ProductObject;
+import elyassgh.estore.api.Exception.classes.NotFoundException;
 import elyassgh.estore.api.Repositories.Cart_ItemRepository;
 import elyassgh.estore.api.Services.CartService;
 import elyassgh.estore.api.Services.Cart_ItemService;
@@ -26,8 +27,8 @@ public class Cart_ItemServiceImpl implements Cart_ItemService {
 
     @Override
     public int save(Long productObjectId, Long cartId, Integer quantity) {
-        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("Product Object Not Found!") );
-        Cart cart = cartService.findCartById(cartId).orElseThrow(()-> new RuntimeException("Cart Not Found"));
+        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new NotFoundException("ProductObject #"+ productObjectId +" Not Found") );
+        Cart cart = cartService.findCartById(cartId).orElseThrow(()-> new NotFoundException("Cart #"+ cartId +" Not Found"));
             try {
                 repository.save(new Cart_Item(productObject, cart, quantity));
                 cartService.update(cart);
@@ -41,8 +42,8 @@ public class Cart_ItemServiceImpl implements Cart_ItemService {
 
     @Override
     public int update(Long productObjectId, Long cartId, Integer quantity) {
-        Cart cart = cartService.findCartById(cartId).orElseThrow(()-> new RuntimeException("Cart Not Found"));
-        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("Product Object Not Found !") );
+        Cart cart = cartService.findCartById(cartId).orElseThrow(()-> new NotFoundException("Cart #"+ cartId +" Not Found"));
+        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new NotFoundException("ProductObject #"+ productObjectId +" Not Found") );
         try {
             Cart_Item item = repository.findCart_ItemByCartAndProductObject(cart, productObject);
             item.setWantedQuantity(quantity);
@@ -57,7 +58,7 @@ public class Cart_ItemServiceImpl implements Cart_ItemService {
     @Override
     public Cart_Item findByCartAndPO(Long cartId, Long productObjectId) {
         ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("Product Object Not Found !"));
-        Cart cart = cartService.findCartById(cartId).orElseThrow(()-> new RuntimeException("Cart Not found"));
+        Cart cart = cartService.findCartById(cartId).orElseThrow(()-> new NotFoundException("Cart #"+ cartId +" Not Found"));
         return repository.findCart_ItemByCartAndProductObject(cart,productObject);
     }
 

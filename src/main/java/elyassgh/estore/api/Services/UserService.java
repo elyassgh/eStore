@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface UserService {
 
     // Authentication methods
-    public String signin(String username, String password);
+    public String login(String username, String password);
     public User whoami(HttpServletRequest req);
     public String refresh(String username);
 

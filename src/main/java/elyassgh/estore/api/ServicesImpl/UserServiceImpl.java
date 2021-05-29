@@ -4,9 +4,11 @@ import java.util.Date;
 import java.util.Optional;
 
 import elyassgh.estore.api.Beans.Role;
+import elyassgh.estore.api.Exception.classes.NotFoundException;
 import elyassgh.estore.api.Exception.classes.UnauthorizedException;
 import elyassgh.estore.api.Security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -54,7 +56,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String refresh(String username) {
-        return jwtTokenProvider.createToken(username, repository.findUserByUsername(username).getRoles());
+
+        Optional<User> user = Optional.ofNullable(repository.findUserByUsername(username));
+
+        if(user.isEmpty()) {
+            throw new NotFoundException("User `"+ username + "` Not found" );
+        }
+
+        if (!user.get().getRoles().contains(Role.ROLE_ADMIN)) {
+            throw new AccessDeniedException("Access denied, Admins Only.");
+        }
+
+        return jwtTokenProvider.createToken(username, user.get().getRoles());
+
     }
 
     @Override

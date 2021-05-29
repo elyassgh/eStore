@@ -81,9 +81,8 @@ public class UserRest {
         return userService.whoami(req);
     }
 
-    @ApiOperation("Refresh authenticated token")
+    @ApiOperation("Refresh authenticated user token")
     @GetMapping("/refresh")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String refresh(HttpServletRequest req) {
         return userService.refresh(req.getRemoteUser());
     }

@@ -34,17 +34,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()//
                 .antMatchers("/eStoreApi/user/register").permitAll()//
                 .antMatchers("/eStoreApi/user/authenticate").permitAll()//
+                .antMatchers("/eStoreApi/user/me").permitAll()//
                 // Disallow everything else..
                 .anyRequest().authenticated();
 
         // If a user try to access a resource without having enough permissions
-        http.exceptionHandling().accessDeniedPage("/authenticate");
+        // http.exceptionHandling().accessDeniedPage("/authenticate");
 
         // Apply JWT
         http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
 
         // Optional, if you want to test the API from a browser
-        http.httpBasic();
+        //http.httpBasic();
     }
 
     @Override

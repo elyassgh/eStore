@@ -26,13 +26,13 @@ public class User {
 
     private LocalDateTime addedAt;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
     private Cart cart;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Favorite> favorites;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Command> commands;  // --> Orders List ;)
 
     @ElementCollection(fetch = FetchType.EAGER)

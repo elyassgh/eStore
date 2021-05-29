@@ -1,5 +1,6 @@
 package elyassgh.estore.api.Security;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -28,10 +29,10 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 Authentication auth = jwtTokenProvider.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
-        } catch (RuntimeException e) {
+        } catch (AccessDeniedException e) {
             //this is very important, since it guarantees the user is not authenticated at all
             SecurityContextHolder.clearContext();
-            return;
+            throw e;
         }
 
         filterChain.doFilter(httpServletRequest, httpServletResponse);

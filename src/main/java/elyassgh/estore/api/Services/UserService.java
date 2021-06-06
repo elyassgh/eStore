@@ -3,7 +3,8 @@ package elyassgh.estore.api.Services;
 import elyassgh.estore.api.Beans.User;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface UserService {
@@ -21,9 +22,9 @@ public interface UserService {
     public User findUserByUsername (String username);
     public User findUserByEmail (String email);
     public Long userCount ();
-    public Long userCount (Date start, Date end);
+    public Long userCount (LocalDateTime start, LocalDateTime end);
 
     // ***  Delete Services  ***
-    public int delete (User user);
+    public void delete (User user);
 
 }

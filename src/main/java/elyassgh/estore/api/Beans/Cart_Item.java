@@ -1,5 +1,7 @@
 package elyassgh.estore.api.Beans;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -18,6 +20,7 @@ public class Cart_Item {
     private ProductObject productObject;
 
     @ManyToOne
+    @JsonIgnore
     @MapsId("cartID")
     @JoinColumn(name = "cart_Id")
     private Cart cart;

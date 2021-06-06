@@ -1,16 +1,11 @@
 package elyassgh.estore.api.wsRest;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import elyassgh.estore.api.Beans.User;
 import elyassgh.estore.api.Services.UserService;
@@ -22,12 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/eStoreApi/user")
 @Api("User Api Rest")
+
+@CrossOrigin(origins = {"http://localhost"})
 public class UserRest {
 
     @Autowired
     private UserService userService;
-
-    BCryptPasswordEncoder passwordEncoder;
 
     @ApiOperation("create a new user")
     @PostMapping("/register")
@@ -57,14 +52,17 @@ public class UserRest {
 
     @ApiOperation("count all users added in a periode")
     @GetMapping("/countUsers")
-    public Long userCount(@RequestParam(name = "from") Date start, @RequestParam(name = "to") Date end) {
+    public Long userCount(@RequestParam(name = "from") LocalDateTime start, @RequestParam(name = "to") LocalDateTime end) {
         return userService.userCount(start, end);
     }
 
     @ApiOperation("delete a user")
     @DeleteMapping("/delete")
     public int delete(@RequestParam(name = "username") String username) {
-        return userService.delete(userService.findUserByUsername(username));
+        User user = userService.findUserByUsername(username);
+        if (user == null) return 0;
+        userService.delete(user);
+        return 1;
     }
 
     @ApiOperation("Login gateway")
@@ -81,9 +79,4 @@ public class UserRest {
         return userService.whoami(req);
     }
 
-    @ApiOperation("Refresh authenticated user token")
-    @GetMapping("/refresh")
-    public String refresh(HttpServletRequest req) {
-        return userService.refresh(req.getRemoteUser());
-    }
 }

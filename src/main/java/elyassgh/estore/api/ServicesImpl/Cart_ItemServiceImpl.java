@@ -57,7 +57,7 @@ public class Cart_ItemServiceImpl implements Cart_ItemService {
 
     @Override
     public Cart_Item findByCartAndPO(Long cartId, Long productObjectId) {
-        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new RuntimeException("Product Object Not Found !"));
+        ProductObject productObject = productObjectService.findPOById(productObjectId).orElseThrow(()-> new NotFoundException("ProductObject #"+ productObjectId +" Not Found"));
         Cart cart = cartService.findCartById(cartId).orElseThrow(()-> new NotFoundException("Cart #"+ cartId +" Not Found"));
         return repository.findCart_ItemByCartAndProductObject(cart,productObject);
     }

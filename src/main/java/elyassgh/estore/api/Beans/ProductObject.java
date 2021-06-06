@@ -1,5 +1,7 @@
 package elyassgh.estore.api.Beans;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,15 +28,18 @@ public class ProductObject {
 
     //Fk to Product --> Bidirectional Relation
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "product_Id")
     private Product product;
 
     @OneToMany(mappedBy = "productObject")
     private List<ProductImage> productImages;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "productObject")
     private List<Favorite> favorites;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "productObject")
     private List<Command_Item> items;
 

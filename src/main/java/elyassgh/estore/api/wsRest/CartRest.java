@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/eStoreApi/cart")
 @Api("Cart Api Rest")
+
+@CrossOrigin(origins = {"http://localhost"})
 public class CartRest {
 
     @Autowired

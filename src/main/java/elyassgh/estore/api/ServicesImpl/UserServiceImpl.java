@@ -1,6 +1,7 @@
 package elyassgh.estore.api.ServicesImpl;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import elyassgh.estore.api.Beans.Role;
@@ -107,18 +108,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Long userCount(Date start, Date end) {
+    public Long userCount(LocalDateTime start, LocalDateTime end) {
         return repository.userCount(start, end);
     }
 
     @Override
-    public int delete(User user) {
-        try {
-            repository.delete(user);
-            return 1;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return -1;
-        }
+    public void delete(User user) {
+        repository.delete(user);
     }
 }

@@ -1,5 +1,7 @@
 package elyassgh.estore.api.Beans;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +31,11 @@ public class User {
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
     private Cart cart;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Favorite> favorites;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Command> commands;  // --> Orders List ;)
 

@@ -5,7 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -22,7 +23,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     // Count users joined in a specific period
     @Query("SELECT COUNT (u) FROM User u WHERE u.addedAt BETWEEN ?1 AND ?2")
-    Long userCount(Date start, Date end);
+    Long userCount(LocalDateTime start, LocalDateTime end);
 
     // Test the existence of a user
     boolean existsByUsername(String username);

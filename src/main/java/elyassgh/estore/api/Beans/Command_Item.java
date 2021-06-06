@@ -1,5 +1,7 @@
 package elyassgh.estore.api.Beans;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -19,6 +21,7 @@ public class Command_Item {
     private ProductObject productObject;
 
     @ManyToOne
+    @JsonIgnore
     @MapsId("command_ID")
     @JoinColumn(name = "command_Id")
     private Command command;
